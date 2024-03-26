@@ -7,9 +7,12 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import github.heinrichbarth.meccgevents.databinding.FragmentSlideshowBinding;
 
-public class SlideshowFragment extends Fragment {
+import github.heinrichbarth.meccgevents.R;
+import github.heinrichbarth.meccgevents.databinding.FragmentSlideshowBinding;
+import github.heinrichbarth.meccgevents.ui.TopActionBarInteractionFragment;
+
+public class SlideshowFragment extends TopActionBarInteractionFragment {
 
     private FragmentSlideshowBinding binding;
 
@@ -17,6 +20,7 @@ public class SlideshowFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentSlideshowBinding.inflate(inflater, container, false);
+        setActivityTitle(getString(R.string.menu_slideshow));
         return binding.getRoot();
     }
 

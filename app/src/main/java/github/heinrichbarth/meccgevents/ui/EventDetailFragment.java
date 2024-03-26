@@ -31,8 +31,8 @@ public class EventDetailFragment extends GenericDetailFragment {
 
         final FragmentEventDetailBinding binding = FragmentEventDetailBinding.inflate(inflater, container, false);
 
-        binding.eventDetailTitle.setText(item.getTitle());
-        binding.eventDetailDate.setText(item.getDate());
+        //binding.eventDetailTitle.setText(item.getTitle());
+        //binding.eventDetailDate.setText(item.getDate());
         binding.eventDetailSummary.setText(item.getSummary());
 
         if (!item.hasText() || getActivity() == null)

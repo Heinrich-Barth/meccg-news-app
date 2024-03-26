@@ -23,7 +23,7 @@
     <string name="upcomingevents_empty">No upcoming events</string>
     <string name="title_activity_news_details">NewsDetailsActivity</string>
     <string name="large_text">
-        "Material is the metaphor.\n\n"
+        "large_text is the metaphor2.\n\n"
 
         "A material metaphor is the unifying theory of a rationalized space and a system of motion."
         "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
@@ -113,7 +113,7 @@
     </string>
 
     <string name="text_resources">
-        "Material is the metaphor.\n\n"
+        "Material is the text_resources.\n\n"
 
         "A material metaphor is the unifying theory of a rationalized space and a system of motion."
         "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
@@ -203,7 +203,7 @@
     </string>
 
     <string name="text_legal">
-        "Material is the metaphor.\n\n"
+        "Material is the text_legal.\n\n"
 
         "A material metaphor is the unifying theory of a rationalized space and a system of motion."
         "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,6 +63,7 @@ public class HomeFragment extends TopActionBarInteractionFragment {
         });
 
         onPopulateViewWithCachedData();
+        setActivityTitle(getString(R.string.menu_home));
         return binding.getRoot();
     }
 
@@ -154,24 +156,27 @@ public class HomeFragment extends TopActionBarInteractionFragment {
     {
         if (vpNews.isEmpty())
         {
-            binding.homeLayoutNews.setVisibility(View.INVISIBLE);
+           // binding.homeLayoutNews.setVisibility(View.INVISIBLE);
             return;
         }
 
-        binding.homeLayoutNews.setVisibility(View.VISIBLE);
-        clearLayout(activity, binding.homeLayoutNewsList);
+        //clearLayout(activity, binding.homeLayoutNewsList);
 
         final FragmentManager fragmentManager = activity.getSupportFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
 
-        for (NewsItem item : vpNews)
+        for (NewsItem item : vpNews) {
+            Log.i("TEST", "SHOW NEWS");
             ft.add(R.id.home_layout_news_list, new NewsFragment(item));
+        }
 
         ft.commit();
+        binding.homeLayoutNews.setVisibility(View.VISIBLE);
     }
 
     private void loadEvents(@NotNull FragmentActivity activity, List<EventItem> vpNews, boolean isOnline)
     {
+        /*
         if (vpNews.isEmpty())
         {
             if (isOnline)
@@ -181,15 +186,15 @@ public class HomeFragment extends TopActionBarInteractionFragment {
 
             return;
         }
-
+*/
         if (isOnline) {
-            binding.homeLayoutOnline.setVisibility(View.VISIBLE);
-            clearLayout(activity, binding.homeLayoutEventsOnlineList);
+            //binding.homeLayoutOnline.setVisibility(View.VISIBLE);
+            //clearLayout(activity, binding.homeLayoutEventsOnlineList);
         }
         else
         {
-            binding.homeLayoutEventsRl.setVisibility(View.VISIBLE);
-            clearLayout(activity, binding.homeLayoyutEventsRlList);
+            //binding.homeLayoutEventsRl.setVisibility(View.VISIBLE);
+            //clearLayout(activity, binding.homeLayoyutEventsRlList);
         }
 
         final FragmentManager fragmentManager = activity.getSupportFragmentManager();
@@ -199,6 +204,8 @@ public class HomeFragment extends TopActionBarInteractionFragment {
         for (EventItem item : vpNews)
             ft.add(layoutId, new EventFragment(item));
 
+        for (EventItem item : vpNews)
+            ft.add(layoutId, new EventFragment(item));
         ft.commit();
     }
 

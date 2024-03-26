@@ -32,9 +32,6 @@ public class NewsDetailsFragment extends GenericDetailFragment {
 
         final FragmentNewsDetailsBinding binding = FragmentNewsDetailsBinding.inflate(inflater, container, false);
 
-        binding.newsDetailsTitle.setText(item.getTitle());
-        binding.newsDetailsDate.setText(item.getSubheadline());
-
         if (!item.hasText() || getActivity() == null)
             binding.newsDetailTextContainer.setVisibility(View.INVISIBLE);
         else
