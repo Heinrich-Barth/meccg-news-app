@@ -39,7 +39,7 @@ public class HomeFragment extends TopActionBarInteractionFragment {
                              ViewGroup container, Bundle savedInstanceState)
     {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
-
+/*
         binding.homeFrameLayout.setOnRefreshListener(() -> {
             try {
                 refreshDataFromUrl();
@@ -48,7 +48,7 @@ public class HomeFragment extends TopActionBarInteractionFragment {
                 binding.homeFrameLayout.setRefreshing(false);
             }
         });
-
+*/
         binding.buttonCurrentGamesMellon.setOnClickListener(v -> {
 
             try {
