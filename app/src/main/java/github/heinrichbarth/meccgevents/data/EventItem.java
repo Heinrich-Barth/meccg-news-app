@@ -45,9 +45,8 @@ public class EventItem extends TextblocksElement implements Comparable<EventItem
     }
     @Override
     public int compareTo(EventItem d) {
-        return d.dateTime - this.dateTime;
+        return this.dateTime - d.dateTime;
     }
-
     @NotNull
     public String getId()
     {

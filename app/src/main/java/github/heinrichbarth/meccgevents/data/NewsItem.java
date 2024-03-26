@@ -34,9 +34,8 @@ public class NewsItem extends TextblocksElement implements Comparable<NewsItem> 
 
     @Override
     public int compareTo(NewsItem d) {
-        return this.dateTime - d.dateTime;
+        return d.dateTime - this.dateTime;
     }
-
     @NotNull
     public String getId()
     {
@@ -80,6 +79,12 @@ public class NewsItem extends TextblocksElement implements Comparable<NewsItem> 
         pItem.text = getTexts(pJson, "texts");
 
         return pItem.isEmpty() ? null : pItem;
+    }
+
+    @NotNull
+    public String getDate()
+    {
+        return date;
     }
 
     private boolean isEmpty()

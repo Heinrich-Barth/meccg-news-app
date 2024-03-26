@@ -36,6 +36,7 @@ public class NewsDetailsFragment extends GenericDetailFragment {
             binding.newsDetailTextContainer.setVisibility(View.INVISIBLE);
         else
         {
+            binding.newsDetailDate.setText(fullDate(item.getDate()));
             final FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction();
 

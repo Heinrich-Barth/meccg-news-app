@@ -34,7 +34,7 @@ public class EventFragment extends Fragment {
     {
         final FragmentEventBinding binding = FragmentEventBinding.inflate(inflater, container, false);
         binding.eventTitle.setText(item.getTitle());
-        binding.eventSubheadline.setText(item.getSubheadline());
+        binding.eventSubheadline.setText(GenericDetailFragment.fullDate(item.getSubheadline()));
 
         binding.eventCard.setClickable(true);
         binding.eventCard.setOnClickListener(new OnCardClickImpl(item.getId(), R.id.action_nav_home_to_eventDetailFragment));

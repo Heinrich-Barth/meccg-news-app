@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".ui.EventDetailFragment">
 
     <LinearLayout
@@ -40,14 +41,16 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="TextView"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="@color/text_default" />
 
                     <TextView
                         android:id="@+id/event_detail_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="TextView"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="@color/text_default" />
 
                     <Space
                         android:layout_width="match_parent"
@@ -64,6 +67,7 @@
                 android:lineSpacingExtra="8sp"
                 android:text="TextView"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/text_default"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -84,11 +88,11 @@
                 android:background="@android:color/transparent"
                 android:text="Button"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                android:textColor="@color/black"
+                android:textColor="@color/text_default"
                 android:textSize="10sp"
                 app:icon="@android:drawable/ic_menu_set_as"
                 app:iconGravity="textEnd"
-                app:iconTint="@color/black" />
+                app:iconTint="@color/text_default" />
 
         </LinearLayout>
 

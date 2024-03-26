@@ -43,7 +43,7 @@ public class NewsFragment extends Fragment {
     {
         final FragmentNewsBinding binding = FragmentNewsBinding.inflate(inflater, container, false);
         binding.newsTitle.setText(item.getTitle());
-        binding.newsSubheadline.setText(item.getSubheadline());
+        binding.newsSubheadline.setText(GenericDetailFragment.fullDate(item.getSubheadline()));
         binding.newsCard.setClickable(true);
         binding.newsCard.setOnClickListener(new OnCardClickImpl(item.getId(), R.id.action_nav_home_to_newsDetailsFragment));
 

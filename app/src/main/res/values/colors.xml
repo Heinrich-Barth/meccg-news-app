@@ -13,8 +13,8 @@
     <color name="subheadline">#FF000000</color>
     <color name="summary">#FF000000</color>
 
-    <color name="background_card">#EFEFEF</color>
+    <color name="background_card">#2f2f2f</color>
     <color name="near_black">#383838</color>
-    <color name="light_black">#535353</color>
-    <color name="background">#CCCCCC</color>
+    <color name="light_black">#a2a2a2</color>
+    <color name="background">#000</color>
 </resources>
