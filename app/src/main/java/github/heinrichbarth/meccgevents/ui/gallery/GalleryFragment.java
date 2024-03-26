@@ -1,9 +1,11 @@
 package github.heinrichbarth.meccgevents.ui.gallery;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -19,6 +21,7 @@ public class GalleryFragment extends TopActionBarInteractionFragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentGalleryBinding.inflate(inflater, container, false);
+        showWebViewContent(binding.textResource, "/resources/content.html");
         setActivityTitle(getString(R.string.menu_gallery));
         return binding.getRoot();
     }

@@ -20,6 +20,7 @@ public class SlideshowFragment extends TopActionBarInteractionFragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentSlideshowBinding.inflate(inflater, container, false);
+        showWebViewContent(binding.textAbout, "/about/content.html");
         setActivityTitle(getString(R.string.menu_slideshow));
         return binding.getRoot();
     }
