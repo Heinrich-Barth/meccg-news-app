@@ -24,10 +24,12 @@ import github.heinrichbarth.meccgevents.ui.OnCardClickImpl;
 public class EventFragment extends Fragment {
 
     private final EventItem item;
+    private final int actionId;
 
-    public EventFragment(@NotNull EventItem pItem)
+    public EventFragment(@NotNull EventItem pItem, int actionId)
     {
         this.item = pItem;
+        this.actionId = actionId;
     }
 
     @Override
@@ -39,7 +41,7 @@ public class EventFragment extends Fragment {
         binding.eventSubheadline.setText(GenericDetailFragment.fullDate(item.getSubheadline()));
 
         binding.eventCard.setClickable(true);
-        binding.eventCard.setOnClickListener(new OnCardClickImpl(item.getId(), R.id.action_nav_home_to_eventDetailFragment));
+        binding.eventCard.setOnClickListener(new OnCardClickImpl(item.getId(), actionId));
 
         return binding.getRoot();
     }

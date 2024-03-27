@@ -20,6 +20,11 @@ public class OnCardClickImpl implements View.OnClickListener
         this.actionId = actionId;
     }
 
+    public OnCardClickImpl(int actionId)
+    {
+        this("", actionId);
+    }
+
     @Override
     public void onClick(View v)
     {

@@ -34,10 +34,12 @@ import github.heinrichbarth.meccgevents.ui.TopActionBarInteractionFragment;
 public class NewsFragment extends Fragment {
 
     private final CardDataItem item;
+    private final int actionId;
 
-    public NewsFragment(@NotNull CardDataItem pItem)
+    public NewsFragment(@NotNull CardDataItem pItem, int actionDetailsNavId)
     {
         this.item = pItem;
+        this.actionId = actionDetailsNavId;
     }
 
     @Override
@@ -48,7 +50,7 @@ public class NewsFragment extends Fragment {
         binding.newsTitle.setText(item.getTitle());
         binding.newsSubheadline.setText(GenericDetailFragment.fullDate(item.getSubheadline()));
         binding.newsCard.setClickable(true);
-        binding.newsCard.setOnClickListener(new OnCardClickImpl(item.getId(), R.id.action_nav_home_to_newsDetailsFragment));
+        binding.newsCard.setOnClickListener(new OnCardClickImpl(item.getId(), actionId));
         return binding.getRoot();
     }
 }

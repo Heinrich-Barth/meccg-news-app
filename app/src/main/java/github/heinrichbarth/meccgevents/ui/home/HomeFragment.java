@@ -28,6 +28,7 @@ import github.heinrichbarth.meccgevents.data.DataRepository;
 import github.heinrichbarth.meccgevents.data.EventItem;
 import github.heinrichbarth.meccgevents.data.NewsItem;
 import github.heinrichbarth.meccgevents.databinding.FragmentHomeBinding;
+import github.heinrichbarth.meccgevents.ui.OnCardClickImpl;
 import github.heinrichbarth.meccgevents.ui.events.EventFragment;
 import github.heinrichbarth.meccgevents.ui.news.NewsFragment;
 import github.heinrichbarth.meccgevents.ui.TopActionBarInteractionFragment;
@@ -43,16 +44,6 @@ public class HomeFragment extends TopActionBarInteractionFragment {
     {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
 
-/*
-        binding.homeFrameLayout.setOnRefreshListener(() -> {
-            try {
-                refreshDataFromUrl();
-            }
-            finally {
-                binding.homeFrameLayout.setRefreshing(false);
-            }
-        });
-*/
         binding.buttonCurrentGamesMellon.setOnClickListener(v -> {
 
             try {
@@ -65,6 +56,16 @@ public class HomeFragment extends TopActionBarInteractionFragment {
                 /* ignore */
             }
         });
+
+        binding.ttleLatestNews.setClickable(true);
+        binding.ttleLatestNews.setOnClickListener(new OnCardClickImpl(R.id.action_nav_home_to_newsListFragment));
+
+        binding.titleUpcomingEvents.setClickable(true);
+        binding.titleUpcomingEvents.setOnClickListener(new OnCardClickImpl(R.id.action_nav_home_to_eventListFragment));
+
+        binding.titleUpcomingEventsOnline.setClickable(true);
+        binding.titleUpcomingEventsOnline.setOnClickListener(new OnCardClickImpl(R.id.action_nav_home_to_eventListFragment));
+
         DataRepository.init(getActivityContext());
         onPopulateViewWithCachedData();
         setActivityTitle(getString(R.string.menu_home));
@@ -126,7 +127,7 @@ public class HomeFragment extends TopActionBarInteractionFragment {
             return;
         }
 
-        final int maxNews = 0;
+        final int maxNews = 3;
         @NotNull DataRepository repository = DataRepository.get();
         loadNews(activity, repository.getNews(maxNews));
         loadEvents(activity, repository.getEvents(maxNews));
@@ -176,13 +177,13 @@ public class HomeFragment extends TopActionBarInteractionFragment {
             return;
         }
 
-        clearLayout(activity, binding.homeLayoutNewsList);
+        binding.homeLayoutNewsList.removeAllViewsInLayout();
 
         final FragmentManager fragmentManager = activity.getSupportFragmentManager();
         FragmentTransaction ft = fragmentManager.beginTransaction();
 
         for (NewsItem item : vpNews)
-            ft.add(R.id.home_layout_news_list, new NewsFragment(item));
+            ft.add(R.id.home_layout_news_list, new NewsFragment(item, R.id.action_nav_home_to_newsDetailsFragment));
 
         ft.commit();
         binding.homeLayoutNews.setVisibility(View.VISIBLE);
@@ -207,12 +208,12 @@ public class HomeFragment extends TopActionBarInteractionFragment {
 
         if (isOnline) {
             binding.homeLayoutOnline.setVisibility(View.VISIBLE);
-            clearLayout(activity, binding.homeLayoutEventsOnlineList);
+            binding.homeLayoutEventsOnlineList.removeAllViewsInLayout();
         }
         else
         {
             binding.homeLayoutEventsRl.setVisibility(View.VISIBLE);
-            clearLayout(activity, binding.homeLayoyutEventsRlList);
+            binding.homeLayoyutEventsRlList.removeAllViewsInLayout();
         }
 
         final FragmentManager fragmentManager = activity.getSupportFragmentManager();
@@ -220,15 +221,11 @@ public class HomeFragment extends TopActionBarInteractionFragment {
 
         final int layoutId = isOnline ? R.id.home_layout_events_online_list : R.id.home_layoyut_events_rl_list;
         for (EventItem item : vpNews)
-            ft.add(layoutId, new EventFragment(item));
+            ft.add(layoutId, new EventFragment(item, R.id.action_nav_home_to_eventDetailFragment));
 
         ft.commit();
     }
 
-    private void clearLayout(@NotNull FragmentActivity activity, LinearLayout layout)
-    {
-        layout.removeAllViewsInLayout();
-    }
 
     @Override
     public void onDestroyView() {

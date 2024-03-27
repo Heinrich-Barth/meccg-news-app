@@ -16,6 +16,12 @@
         <action
             android:id="@+id/action_nav_home_to_eventDetailFragment"
             app:destination="@id/eventDetailFragment" />
+        <action
+            android:id="@+id/action_nav_home_to_newsListFragment"
+            app:destination="@id/newsListFragment" />
+        <action
+            android:id="@+id/action_nav_home_to_eventListFragment"
+            app:destination="@id/eventListFragment" />
     </fragment>
 
     <fragment
@@ -37,10 +43,38 @@
         <action
             android:id="@+id/action_newsDetailsFragment_to_nav_home"
             app:destination="@id/nav_home" />
+        <action
+            android:id="@+id/action_newsDetailsFragment_to_newsListFragment"
+            app:destination="@id/newsListFragment" />
     </fragment>
     <fragment
         android:id="@+id/eventDetailFragment"
         android:name="github.heinrichbarth.meccgevents.ui.events.EventDetailFragment"
         android:label="fragment_event_detail"
-        tools:layout="@layout/fragment_event_detail" />
+        tools:layout="@layout/fragment_event_detail" >
+        <action
+            android:id="@+id/action_eventDetailFragment_to_eventListFragment"
+            app:destination="@id/eventListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newsListFragment"
+        android:name="github.heinrichbarth.meccgevents.ui.news.NewsListFragment"
+        android:label="fragment_news_list"
+        tools:layout="@layout/fragment_news_list" >
+        <action
+            android:id="@+id/action_newsListFragment_to_newsDetailsFragment"
+            app:destination="@id/newsDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/eventListFragment"
+        android:name="github.heinrichbarth.meccgevents.ui.events.EventListFragment"
+        android:label="fragment_event_list"
+        tools:layout="@layout/fragment_event_list" >
+        <action
+            android:id="@+id/action_eventListFragment_to_eventDetailFragment"
+            app:destination="@id/eventDetailFragment" />
+        <action
+            android:id="@+id/action_eventListFragment_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
 </navigation>
