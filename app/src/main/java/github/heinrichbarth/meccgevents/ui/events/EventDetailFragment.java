@@ -1,4 +1,4 @@
-package github.heinrichbarth.meccgevents.ui;
+package github.heinrichbarth.meccgevents.ui.events;
 
 import android.os.Bundle;
 
@@ -15,6 +15,8 @@ import github.heinrichbarth.meccgevents.R;
 import github.heinrichbarth.meccgevents.data.DataRepository;
 import github.heinrichbarth.meccgevents.data.EventItem;
 import github.heinrichbarth.meccgevents.databinding.FragmentEventDetailBinding;
+import github.heinrichbarth.meccgevents.ui.GenericDetailFragment;
+import github.heinrichbarth.meccgevents.ui.TextblockFragment;
 
 public class EventDetailFragment extends GenericDetailFragment {
 

@@ -9,12 +9,12 @@ import org.jetbrains.annotations.NotNull;
 
 import github.heinrichbarth.meccgevents.R;
 
-class OnCardClickImpl implements View.OnClickListener
+public class OnCardClickImpl implements View.OnClickListener
 {
     private final String id;
     private final int actionId;
 
-    OnCardClickImpl(@NotNull String id, int actionId)
+    public OnCardClickImpl(@NotNull String id, int actionId)
     {
         this.id = id;
         this.actionId = actionId;

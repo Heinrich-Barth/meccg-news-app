@@ -1,4 +1,4 @@
-package github.heinrichbarth.meccgevents.ui;
+package github.heinrichbarth.meccgevents.ui.events;
 
 import android.os.Bundle;
 
@@ -18,6 +18,8 @@ import github.heinrichbarth.meccgevents.data.CardDataItem;
 import github.heinrichbarth.meccgevents.data.EventItem;
 import github.heinrichbarth.meccgevents.databinding.FragmentEventBinding;
 import github.heinrichbarth.meccgevents.databinding.FragmentNewsBinding;
+import github.heinrichbarth.meccgevents.ui.GenericDetailFragment;
+import github.heinrichbarth.meccgevents.ui.OnCardClickImpl;
 
 public class EventFragment extends Fragment {
 

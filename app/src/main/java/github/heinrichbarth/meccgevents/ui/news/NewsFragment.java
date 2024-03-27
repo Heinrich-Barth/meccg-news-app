@@ -1,4 +1,4 @@
-package github.heinrichbarth.meccgevents.ui;
+package github.heinrichbarth.meccgevents.ui.news;
 
 import static androidx.navigation.Navigation.findNavController;
 
@@ -27,6 +27,8 @@ import github.heinrichbarth.meccgevents.R;
 import github.heinrichbarth.meccgevents.data.CardDataItem;
 import github.heinrichbarth.meccgevents.data.NewsItem;
 import github.heinrichbarth.meccgevents.databinding.FragmentNewsBinding;
+import github.heinrichbarth.meccgevents.ui.GenericDetailFragment;
+import github.heinrichbarth.meccgevents.ui.OnCardClickImpl;
 
 public class NewsFragment extends Fragment {
 

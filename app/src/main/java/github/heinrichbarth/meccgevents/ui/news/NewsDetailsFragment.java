@@ -1,4 +1,4 @@
-package github.heinrichbarth.meccgevents.ui;
+package github.heinrichbarth.meccgevents.ui.news;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +16,8 @@ import github.heinrichbarth.meccgevents.R;
 import github.heinrichbarth.meccgevents.data.DataRepository;
 import github.heinrichbarth.meccgevents.data.NewsItem;
 import github.heinrichbarth.meccgevents.databinding.FragmentNewsDetailsBinding;
+import github.heinrichbarth.meccgevents.ui.GenericDetailFragment;
+import github.heinrichbarth.meccgevents.ui.TextblockFragment;
 
 public class NewsDetailsFragment extends GenericDetailFragment {
 
@@ -45,6 +47,7 @@ public class NewsDetailsFragment extends GenericDetailFragment {
             ft.commit();
         }
         setActivityTitle(item.getTitle());
+        changeToolbarImage(R.drawable.toolbar_image_news);
         return binding.getRoot();
     }
 }

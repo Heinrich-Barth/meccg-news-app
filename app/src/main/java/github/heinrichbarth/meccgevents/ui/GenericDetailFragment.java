@@ -18,7 +18,7 @@ import java.util.Locale;
 
 import github.heinrichbarth.meccgevents.MainActivity;
 
-abstract class GenericDetailFragment extends TopActionBarInteractionFragment {
+public abstract class GenericDetailFragment extends TopActionBarInteractionFragment {
 
     protected String getDataId(@Nullable Bundle savedInstanceState)
     {
@@ -50,7 +50,7 @@ abstract class GenericDetailFragment extends TopActionBarInteractionFragment {
     }
 
     @NotNull
-    static String fullDate(@NotNull String sDate)
+    public static String fullDate(@NotNull String sDate)
     {
         final String[] parts = sDate.split("-");
         if (parts.length != 3)

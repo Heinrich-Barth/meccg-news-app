@@ -21,6 +21,7 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
+                android:id="@+id/collapsing_toolbar_image"
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
                 android:adjustViewBounds="true"

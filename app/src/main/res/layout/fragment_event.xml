@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
     android:paddingBottom="5dp"
-    tools:context=".ui.EventFragment">
+    tools:context=".ui.events.EventFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/eventCard"

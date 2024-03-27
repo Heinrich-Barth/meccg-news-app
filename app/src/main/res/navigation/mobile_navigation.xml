@@ -31,7 +31,7 @@
         tools:layout="@layout/fragment_slideshow" />
     <fragment
         android:id="@+id/newsDetailsFragment"
-        android:name="github.heinrichbarth.meccgevents.ui.NewsDetailsFragment"
+        android:name="github.heinrichbarth.meccgevents.ui.news.NewsDetailsFragment"
         android:label="fragment_news_details"
         tools:layout="@layout/fragment_news_details" >
         <action
@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/eventDetailFragment"
-        android:name="github.heinrichbarth.meccgevents.ui.EventDetailFragment"
+        android:name="github.heinrichbarth.meccgevents.ui.events.EventDetailFragment"
         android:label="fragment_event_detail"
         tools:layout="@layout/fragment_event_detail" />
 </navigation>

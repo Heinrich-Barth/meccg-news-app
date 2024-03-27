@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import github.heinrichbarth.meccgevents.BuildConfig;
 import github.heinrichbarth.meccgevents.MainActivity;
 
 public class DataRepository
@@ -50,13 +51,13 @@ public class DataRepository
     }
 
     @NotNull
-    private static final String URL_EVENTS = "https://meccg.herokuapp.com/app/events.json";
+    private static final String URL_EVENTS = BuildConfig.URL_EVENTS_ALL;
 
     @NotNull
-    private static final String URL_GAMES_MELLON = "https://meccg.herokuapp.com/api/games/count";
+    private static final String URL_GAMES_MELLON = BuildConfig.URL_MELLON_GAMES;
 
     @NotNull
-    private static final String URL_NEWS = "https://meccg.herokuapp.com/app/news.json";
+    private static final String URL_NEWS = BuildConfig.URL_NEWS_ALL;
 
     @NotNull
     public List<NewsItem> getNews(int nMax)

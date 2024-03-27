@@ -27,8 +27,8 @@ import github.heinrichbarth.meccgevents.data.DataRepository;
 import github.heinrichbarth.meccgevents.data.EventItem;
 import github.heinrichbarth.meccgevents.data.NewsItem;
 import github.heinrichbarth.meccgevents.databinding.FragmentHomeBinding;
-import github.heinrichbarth.meccgevents.ui.EventFragment;
-import github.heinrichbarth.meccgevents.ui.NewsFragment;
+import github.heinrichbarth.meccgevents.ui.events.EventFragment;
+import github.heinrichbarth.meccgevents.ui.news.NewsFragment;
 import github.heinrichbarth.meccgevents.ui.TopActionBarInteractionFragment;
 
 public class HomeFragment extends TopActionBarInteractionFragment {
@@ -79,6 +79,7 @@ public class HomeFragment extends TopActionBarInteractionFragment {
     {
         /* fetch automatically */
         refreshDataFromUrl();
+        changeToolbarImage(R.drawable.rivendell_wallpaper);
     }
 
     private static long timeLastRequested = 0;

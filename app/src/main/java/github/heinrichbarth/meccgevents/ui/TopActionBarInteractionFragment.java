@@ -1,11 +1,9 @@
 package github.heinrichbarth.meccgevents.ui;
 
 import android.graphics.Color;
-import android.os.Build;
-import android.text.Html;
-import android.text.Spanned;
-import android.text.SpannedString;
+import android.view.View;
 import android.webkit.WebView;
+import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -40,12 +38,13 @@ public abstract class TopActionBarInteractionFragment extends Fragment
         return activity == null ? null : activity.findViewById(R.id.collapsing_toolbar);
     }
 
-    protected Spanned parseHtmlText(@NotNull String sContent)
+    protected void changeToolbarImage(int imageId)
     {
-        if (!sContent.contains("</"))
-            return new SpannedString(sContent);
-        else
-            return Html.fromHtml(sContent, Html.FROM_HTML_MODE_COMPACT);
+        final FragmentActivity activity = getActivity();
+        final ImageView image = activity == null ? null : activity.findViewById(R.id.collapsing_toolbar_image);
+        if (image != null)
+            image.setImageResource(imageId);
     }
+
 
 }
