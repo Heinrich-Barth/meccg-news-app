@@ -20,6 +20,7 @@ class SharedPrefsData {
 
     private static final String SHARED_FILE = "github.heinrichbarth.meccgevents";
     private static final String KEY_DATA_REFRESH = "data_refresh";
+    private static final String KEY_TERMS = "terms";
 
     private final Context context;
 
@@ -35,6 +36,17 @@ class SharedPrefsData {
     protected void updateTimeLastDataRefresh()
     {
         setSharedPrefLong(context, KEY_DATA_REFRESH, System.currentTimeMillis());
+    }
+
+    public boolean hasAgreedToTerms()
+    {
+        return getSharedPrefBool(context, KEY_TERMS, false);
+    }
+
+    public void agreeToTerms()
+    {
+        Log.i(TAG, "User agreed to terms and conditions");
+        setSharedPrefBool(context, KEY_TERMS, true);
     }
 
     protected void saveCache(String sFile, String jsonData)
@@ -69,12 +81,7 @@ class SharedPrefsData {
 
     private long getSharedPrefLong(@Nullable Context context, @NotNull String sField, long lDefault)
     {
-        if (context == null) {
-            Log.w(TAG, "Context not available. Cannot access shared preferences");
-            return lDefault;
-        }
-
-        final SharedPreferences prefs = context.getSharedPreferences(SHARED_FILE, Context.MODE_PRIVATE);
+        final SharedPreferences prefs = getSharedPreferences(context);
         if (prefs == null)
         {
             Log.e(TAG, "Cannot get shared prefs");
@@ -84,23 +91,58 @@ class SharedPrefsData {
             return prefs.getLong(sField, lDefault);
     }
 
-    private void setSharedPrefLong(@Nullable Context context, @NotNull String sField, long lValue)
+    @Nullable
+    private SharedPreferences getSharedPreferences(@Nullable Context context)
     {
         if (context == null) {
-            Log.w(TAG, "Context not available. Cannot update shared preferences");
-            return;
+            Log.w(TAG, "Context not available. Cannot access shared preferences");
+            return null;
         }
+        else
+            return context.getSharedPreferences(SHARED_FILE, Context.MODE_PRIVATE);
+    }
 
-        final SharedPreferences prefs = context.getSharedPreferences(SHARED_FILE, Context.MODE_PRIVATE);
+    private boolean getSharedPrefBool(@Nullable Context context, @NotNull String sField, boolean bDefault)
+    {
+        final SharedPreferences prefs = getSharedPreferences(context);
         if (prefs == null)
         {
             Log.e(TAG, "Cannot get shared prefs");
-            return;
+            return bDefault;
         }
+        else
+            return prefs.getBoolean(sField, bDefault);
+    }
 
-        final SharedPreferences.Editor editor = prefs.edit();
-        editor.putLong(sField, lValue);
-        editor.apply();
+    private void setSharedPrefLong(@Nullable Context context, @NotNull String sField, long lValue)
+    {
+        final SharedPreferences.Editor editor = getSharedPrefEditor(context);
+        if (editor != null) {
+            editor.putLong(sField, lValue);
+            editor.apply();
+        }
+    }
+
+    @Nullable
+    private SharedPreferences.Editor getSharedPrefEditor(@Nullable Context context)
+    {
+        final SharedPreferences prefs = getSharedPreferences(context);
+        if (prefs == null)
+        {
+            Log.e(TAG, "Cannot get shared prefs");
+            return null;
+        }
+        else
+            return prefs.edit();
+    }
+
+    private void setSharedPrefBool(@Nullable Context context, @NotNull String sField, boolean bValue)
+    {
+        final SharedPreferences.Editor editor = getSharedPrefEditor(context);
+        if (editor != null) {
+            editor.putBoolean(sField, bValue);
+            editor.apply();
+        }
     }
 
     @NotNull

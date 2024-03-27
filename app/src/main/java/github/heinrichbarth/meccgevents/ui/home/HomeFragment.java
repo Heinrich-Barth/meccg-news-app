@@ -1,26 +1,33 @@
 package github.heinrichbarth.meccgevents.ui.home;
 
+import androidx.appcompat.app.AlertDialog;
+
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import github.heinrichbarth.meccgevents.R;
@@ -50,7 +57,7 @@ public class HomeFragment extends TopActionBarInteractionFragment {
                 final Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
                 startActivity(launchBrowser);
             }
-            catch (IllegalStateException exIngore)
+            catch (IllegalStateException exIgnore)
             {
                 /* ignore */
             }
@@ -89,12 +96,71 @@ public class HomeFragment extends TopActionBarInteractionFragment {
         new RefreshTask(this, forceRefresh).execute("");
     }
 
+
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
         /* fetch automatically */
-        refreshDataFromUrl(false);
         changeToolbarImage(R.drawable.rivendell_wallpaper);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        if (DataRepository.get(getActivityContext()).hasAgreedToTerms()) {
+            refreshDataFromUrl(false);
+            return;
+        }
+
+        /* impass. we need to have user accept terms and conditions */
+        final Spanned sHtml = getLegalText();
+        if (getActivity() == null || sHtml == null)
+            return;
+
+        new AlertDialog.Builder(getActivity())
+                .setMessage(sHtml)
+                .setPositiveButton("Agree", (DialogInterface dialog, int id) -> {
+                    DataRepository.get(getActivityContext()).agreeToTerms();
+                    refreshDataFromUrl(false);
+                })
+                .setNegativeButton("Disagree", (DialogInterface dialog, int id) -> System.exit(0))
+                .setCancelable(false)
+                .create()
+                .show();
+
+
+    }
+
+
+    private byte[] readStream(InputStream in) throws IOException {
+        if (in == null)
+            return new byte[0];
+
+        final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+
+        int nRead;
+        final byte[] data = new byte[1024];
+        while ((nRead = in.read(data, 0, data.length)) != -1)
+            buffer.write(data, 0, nRead);
+
+        buffer.flush();
+        return buffer.toByteArray();
+    }
+
+    private Spanned getLegalText()
+    {
+        try (InputStream in = getContext().getAssets().open("about/short.html"))
+        {
+            final String sHtml = new String(readStream(in), StandardCharsets.UTF_8);
+            return Html.fromHtml(sHtml, HtmlCompat.FROM_HTML_MODE_COMPACT);
+        }
+        catch (IOException | RuntimeException ex)
+        {
+            Log.e(TAG, ex.getMessage(), ex);
+        }
+        return null;
     }
 
     private static class RefreshTask extends AsyncTask<String, Void, String>

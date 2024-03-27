@@ -94,9 +94,6 @@ public class DataRepository extends SharedPrefsData
         return result;
     }
 
-
-
-
     @NotNull
     public List<EventItem> getEvents(int nMax, boolean onlineEvents)
     {

@@ -1,6 +1,7 @@
 package github.heinrichbarth.meccgevents;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.LinkProperties;
 import android.net.Network;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
