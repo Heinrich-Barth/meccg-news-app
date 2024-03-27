@@ -1,5 +1,12 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.androidApplication)
+}
+
+val localProperties = Properties().apply {
+    load(FileInputStream(File(rootProject.rootDir, "local.properties")))
 }
 
 android {
@@ -23,6 +30,15 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "URL_MELLON_GAMES", "\"${localProperties.getProperty("meccg.url.mellon.games", "")}\"")
+            buildConfigField("String", "URL_EVENTS_ALL", "\"${localProperties.getProperty("meccg.url.events.all", "")}\"")
+            buildConfigField("String", "URL_NEWS_ALL", "\"${localProperties.getProperty("meccg.url.news.all", "")}\"")
+        }
+
+        debug {
+            buildConfigField("String", "URL_MELLON_GAMES", "\"${localProperties.getProperty("meccg.url.mellon.games", "")}\"")
+            buildConfigField("String", "URL_EVENTS_ALL", "\"${localProperties.getProperty("meccg.url.events.all", "")}\"")
+            buildConfigField("String", "URL_NEWS_ALL", "\"${localProperties.getProperty("meccg.url.news.all", "")}\"")
         }
     }
     compileOptions {
@@ -31,6 +47,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
