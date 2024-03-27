@@ -36,18 +36,18 @@ public class EventListFragment extends GenericDetailFragment {
     {
         final FragmentEventListBinding binding = FragmentEventListBinding.inflate(inflater, container, false);
 
-        loadEvents(DataRepository.get().getEvents(0));
+        loadEvents();
 
         setActivityTitle(getString(R.string.menu_events_list));
         changeToolbarImage(R.drawable.event_background);
-        setRefreshCallbackEvent(null);
         return binding.getRoot();
     }
 
-    private void loadEvents(List<EventItem> events)
+    private void loadEvents()
     {
-        @NotNull List<EventItem> vpRL = filterEvents(events, false);
-        @NotNull List<EventItem> vpOnline = filterEvents(events, true);
+        @NotNull final DataRepository repo = DataRepository.get();
+        @NotNull final List<EventItem> vpRL = repo.getEvents(0, false);
+        @NotNull final List<EventItem> vpOnline = repo.getEvents(0, true);
 
         final FragmentActivity activity = vpRL.isEmpty() && vpOnline.isEmpty() ? null : getActivity();
         if (activity == null)
@@ -65,19 +65,4 @@ public class EventListFragment extends GenericDetailFragment {
         ft.commit();
     }
 
-    @NotNull
-    private List<EventItem> filterEvents(List<EventItem> vpNews, boolean onlineEvents)
-    {
-        if (vpNews.isEmpty())
-            return Collections.emptyList();
-
-        final List<EventItem> vpList = new ArrayList<>();
-        for (EventItem item : vpNews)
-        {
-            if (item.isOnline() == onlineEvents)
-                vpList.add(item);
-        }
-
-        return vpList;
-    }
 }

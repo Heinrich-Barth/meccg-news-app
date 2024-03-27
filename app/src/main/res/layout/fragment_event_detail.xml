@@ -61,6 +61,18 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/event_detail_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                android:textColor="@color/text_default" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="18dp" />
+
+            <TextView
                 android:id="@+id/event_detail_summary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

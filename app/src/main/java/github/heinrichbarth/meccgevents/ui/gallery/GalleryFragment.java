@@ -24,7 +24,6 @@ public class GalleryFragment extends TopActionBarInteractionFragment {
         showWebViewContent(binding.textResource, "/resources/content.html");
         setActivityTitle(getString(R.string.menu_gallery));
         changeToolbarImage(R.drawable.resources_background);
-        setRefreshCallbackEvent(null);
         return binding.getRoot();
     }
 

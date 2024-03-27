@@ -1,6 +1,7 @@
 package github.heinrichbarth.meccgevents.ui;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.navigation.Navigation;
@@ -11,6 +12,8 @@ import github.heinrichbarth.meccgevents.R;
 
 public class OnCardClickImpl implements View.OnClickListener
 {
+    private static final String TAG = "OnCardClickImpl";
+
     private final String id;
     private final int actionId;
 
@@ -28,8 +31,14 @@ public class OnCardClickImpl implements View.OnClickListener
     @Override
     public void onClick(View v)
     {
-        final Bundle bundle = new Bundle();
-        bundle.putString("id", id);
-        Navigation.findNavController(v).navigate(actionId, bundle);
+        try {
+            final Bundle bundle = new Bundle();
+            bundle.putString("id", id);
+            Navigation.findNavController(v).navigate(actionId, bundle);
+        }
+        catch (IllegalStateException | IllegalArgumentException ex)
+        {
+            Log.e(TAG, ex.getMessage(), ex);
+        }
     }
 }

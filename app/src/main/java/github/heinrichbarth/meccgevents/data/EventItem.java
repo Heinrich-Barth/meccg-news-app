@@ -21,6 +21,7 @@ public class EventItem extends TextblocksElement implements Comparable<EventItem
     private String title = "";
     private String date = "";
 
+    private String dateText = "";
     private int dateTime = 0;
     private String summary = "";
     private List<HtmlTextElement> text = Collections.emptyList();
@@ -64,7 +65,7 @@ public class EventItem extends TextblocksElement implements Comparable<EventItem
     }
     @Override
     public @NotNull String getSubheadline() {
-        return date;
+        return dateText;
     }
 
     @NotNull
@@ -112,6 +113,7 @@ public class EventItem extends TextblocksElement implements Comparable<EventItem
         event.id = requireString(pJson, "id");
         event.title = requireString(pJson, "title");
         event.date = getDate(pJson);
+        event.dateText = requireString(pJson, "dateText");
         event.dateTime = toTime(event.date);
         event.duration = requireInteger(pJson, "duration", 1);
         event.geo = requireString(pJson, "geo");
@@ -120,7 +122,7 @@ public class EventItem extends TextblocksElement implements Comparable<EventItem
         event.summary = requireString(pJson, "summary");
         event.text = getTexts(pJson, "texts");
         event.url = requireString(pJson, "url");
-        event.online = requireBoolean(pJson, "online", false);
+        event.online = requireBoolean(pJson, "onlineEvent", false);
 
         return event.isEmpty() ? null : event;
     }

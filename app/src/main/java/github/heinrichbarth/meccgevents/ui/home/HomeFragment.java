@@ -43,7 +43,6 @@ public class HomeFragment extends TopActionBarInteractionFragment {
                              ViewGroup container, Bundle savedInstanceState)
     {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
-
         binding.buttonCurrentGamesMellon.setOnClickListener(v -> {
 
             try {
@@ -69,8 +68,14 @@ public class HomeFragment extends TopActionBarInteractionFragment {
         DataRepository.init(getActivityContext());
         onPopulateViewWithCachedData();
         setActivityTitle(getString(R.string.menu_home));
-        setRefreshCallbackEvent(() -> refreshDataFromUrl(true));
+
         return binding.getRoot();
+    }
+
+    @Override
+    protected void onRefreshCallbackEvent()
+    {
+        refreshDataFromUrl(true);
     }
 
     @Nullable
@@ -130,7 +135,8 @@ public class HomeFragment extends TopActionBarInteractionFragment {
         final int maxNews = 3;
         @NotNull DataRepository repository = DataRepository.get();
         loadNews(activity, repository.getNews(maxNews));
-        loadEvents(activity, repository.getEvents(maxNews));
+        loadEvents(activity, repository.getEvents(maxNews, false), false);
+        loadEvents(activity, repository.getEvents(maxNews, true), true);
         updateOnlineGames(repository.getCurrentGames());
     }
 
@@ -141,31 +147,6 @@ public class HomeFragment extends TopActionBarInteractionFragment {
 
         final String sText = binding.buttonCurrentGamesMellon.getText().toString().split(":")[0];
         binding.buttonCurrentGamesMellon.setText(sText + ": " + count);
-    }
-
-    private void loadEvents(FragmentActivity activity, List<EventItem> events)
-    {
-        @NotNull List<EventItem> vpRL = filterEvents(events, false);
-        @NotNull List<EventItem> vpOnline = filterEvents(events, true);
-
-        loadEvents(activity, vpRL, false);
-        loadEvents(activity, vpOnline, true);
-    }
-
-    @NotNull
-    private List<EventItem> filterEvents(List<EventItem> vpNews, boolean onlineEvents)
-    {
-        if (vpNews.isEmpty())
-            return Collections.emptyList();
-
-        final List<EventItem> vpList = new ArrayList<>();
-        for (EventItem item : vpNews)
-        {
-            if (item.isOnline() == onlineEvents)
-                vpList.add(item);
-        }
-
-        return vpList;
     }
 
     private void loadNews(@NotNull FragmentActivity activity, List<NewsItem> vpNews)

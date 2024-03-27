@@ -19,6 +19,8 @@ import github.heinrichbarth.meccgevents.R;
 
 public abstract class TopActionBarInteractionFragment extends Fragment
 {
+    private static final String TAG = "TopActionBarInteractionFragment";
+
     protected void setActivityTitle(@NotNull String sText)
     {
         final CollapsingToolbarLayout actionBar = getActionBar();
@@ -26,20 +28,37 @@ public abstract class TopActionBarInteractionFragment extends Fragment
             actionBar.setTitle(sText);
     }
 
-    protected void setRefreshCallbackEvent(@Nullable final ISwipeRefreshListener callback)
+    protected void onRefreshCallbackEvent()
     {
+        /* allow overwrite */
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
         final FragmentActivity activity = getActivity();
-        final SwipeRefreshLayout layout = activity == null ? null : activity.findViewById(R.id.swipe_refresh_layout);
-        if (layout == null)
+        if (activity == null)
+        {
+            Log.w(TAG, "Cannot get activity to set refresh callback");
             return;
+        }
+        final SwipeRefreshLayout layout = activity.findViewById(R.id.swipe_refresh_layout);
+        if (layout == null) {
+            Log.w(TAG, "Cannot get SwipeRefreshLayout");
+            return;
+        }
 
         layout.setOnRefreshListener(() -> {
             try {
-                Log.i("TopActionBarInteractionFragment", "REFRESH ACTION");
-                if (callback != null)
-                    callback.onPerformRefreshAction();
+                onRefreshCallbackEvent();
             }
-            finally {
+            catch (RuntimeException ex)
+            {
+                Log.e(TAG, ex.getMessage(), ex);
+            }
+            finally
+            {
                 layout.setRefreshing(false);
             }
         });

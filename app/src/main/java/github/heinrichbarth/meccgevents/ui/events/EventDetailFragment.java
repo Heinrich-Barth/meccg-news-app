@@ -33,8 +33,7 @@ public class EventDetailFragment extends GenericDetailFragment {
 
         final FragmentEventDetailBinding binding = FragmentEventDetailBinding.inflate(inflater, container, false);
 
-        //binding.eventDetailTitle.setText(item.getTitle());
-        //binding.eventDetailDate.setText(item.getDate());
+        binding.eventDetailDate.setText(item.getSubheadline());
         binding.eventDetailSummary.setText(item.getSummary());
 
         if (!item.hasText() || getActivity() == null)
@@ -71,7 +70,6 @@ public class EventDetailFragment extends GenericDetailFragment {
 
         setActivityTitle(item.getTitle());
         changeToolbarImage(R.drawable.event_background);
-        setRefreshCallbackEvent(null);
         return binding.getRoot();
     }
 

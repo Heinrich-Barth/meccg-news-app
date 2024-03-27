@@ -72,22 +72,35 @@ public class DataRepository extends SharedPrefsData
 
 
     @NotNull
-    public List<EventItem> getEvents(List<EventItem> list, int nMax)
+    public List<EventItem> getEvents(List<EventItem> list, int nMax, boolean onlineEvents)
     {
         if (list.isEmpty())
             return Collections.emptyList();
 
-        if (nMax < 1 || nMax > eventItems.size())
-            return Collections.unmodifiableList(eventItems);
+        if (nMax == 0)
+            nMax = list.size();
 
-        return Collections.unmodifiableList(eventItems.subList(0, nMax));
+        int nAdded = 0;
+        final List<EventItem> result = new ArrayList<>();
+        for (int i = 0; nAdded < nMax && i < list.size(); i++)
+        {
+            final EventItem e = list.get(i);
+            if (e.isOnline() == onlineEvents) {
+                nAdded++;
+                result.add(e);
+            }
+        };
+
+        return result;
     }
 
 
+
+
     @NotNull
-    public List<EventItem> getEvents(int nMax)
+    public List<EventItem> getEvents(int nMax, boolean onlineEvents)
     {
-        return getEvents(eventItems, nMax);
+        return getEvents(eventItems, nMax, onlineEvents);
     }
 
     @NotNull
@@ -119,6 +132,9 @@ public class DataRepository extends SharedPrefsData
 
         if (!forceRefresh && !allowRefresh())
             return false;
+
+        if (forceRefresh)
+            Log.i(TAG, "Force cache update");
 
         if (loadNewsFromDUrl() && loadEventsFromDUrl())
         {

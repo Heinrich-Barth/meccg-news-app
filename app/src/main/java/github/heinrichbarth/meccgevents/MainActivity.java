@@ -8,6 +8,7 @@ import android.net.NetworkCapabilities;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.navigation.NavigationView;
@@ -23,6 +24,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import github.heinrichbarth.meccgevents.data.DataRepository;
 import github.heinrichbarth.meccgevents.databinding.ActivityMainBinding;
@@ -51,34 +53,6 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-
-        checkNetworkConnection();
-    }
-
-    private void checkNetworkConnection()
-    {
-        ConnectivityManager connectivityManager = getSystemService(ConnectivityManager.class);
-        connectivityManager.registerDefaultNetworkCallback(new ConnectivityManager.NetworkCallback() {
-            @Override
-            public void onAvailable(Network network) {
-                Log.e("NETWORK", "The default network is now: " + network);
-            }
-
-            @Override
-            public void onLost(Network network) {
-                Log.e("NETWORK", "The application no longer has a default network. The last default network was " + network);
-            }
-
-            @Override
-            public void onCapabilitiesChanged(Network network, NetworkCapabilities networkCapabilities) {
-                Log.e("NETWORK", "The default network changed capabilities: " + networkCapabilities);
-            }
-
-            @Override
-            public void onLinkPropertiesChanged(Network network, LinkProperties linkProperties) {
-                Log.e("NETWORK", "The default network changed link properties: " + linkProperties);
-            }
-        });
     }
 
     @Override
