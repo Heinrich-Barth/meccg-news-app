@@ -1,6 +1,7 @@
 package github.heinrichbarth.meccgevents.data;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -22,10 +23,13 @@ import java.util.List;
 
 import github.heinrichbarth.meccgevents.BuildConfig;
 import github.heinrichbarth.meccgevents.MainActivity;
+import github.heinrichbarth.meccgevents.R;
 
-public class DataRepository
+public class DataRepository extends SharedPrefsData
 {
     private static final String TAG = "DatRepository";
+    private static final String FILE_NEWS = "news.json";
+    private static final String FILE_EVENTS = "events.json";
 
     @NotNull
     private static final List<NewsItem> newsItems = new ArrayList<>();
@@ -33,21 +37,10 @@ public class DataRepository
     @NotNull
     private static final List<EventItem> eventItems = new ArrayList<>();
 
-    private final String FILE_NEWS = "news.json";
-    private final String FILE_EVENTS = "events.json";
-
-    @Nullable
-    private final Context context;
     private static int countGamesMellon = 0;
 
-
     private DataRepository(@Nullable Context applicationContext) {
-        this.context = applicationContext;
-    }
-
-    private DataRepository()
-    {
-        this(null);
+        super(applicationContext);
     }
 
     @NotNull
@@ -100,21 +93,61 @@ public class DataRepository
     @NotNull
     public static DataRepository get()
     {
-        return new DataRepository();
+        return get(null);
     }
 
-    public static void init(@NotNull MainActivity pMainActivity)
+    @NotNull
+    public static DataRepository get(@Nullable Context context)
     {
-        final DataRepository INSTANCE = new DataRepository(pMainActivity.getBaseContext());
-        INSTANCE.loadNewsCache();
-        INSTANCE.loadEventsCache();
+        return new DataRepository(context);
     }
 
-    public boolean fetchData()
+    public static void init(@Nullable Context context)
+    {
+        final DataRepository INSTANCE = new DataRepository(context);
+        final int news = INSTANCE.loadNewsCache();
+        final int events = INSTANCE.loadEventsCache();
+
+        Log.i(TAG, "Cached events: " + events);
+        Log.i(TAG, "Cached news: " + news);
+    }
+
+    public boolean fetchData(boolean forceRefresh)
     {
         final JSONObject data = getHttpJson(URL_GAMES_MELLON);
         countGamesMellon = JsonUtils.requireInteger(data, "games");
-        return loadNewsFromDUrl() && loadEventsFromDUrl();
+
+        if (!forceRefresh && !allowRefresh())
+            return false;
+
+        if (loadNewsFromDUrl() && loadEventsFromDUrl())
+        {
+            updateTimeLastDataRefresh();
+            return true;
+        }
+        else
+            return false;
+    }
+
+    private static final long MILLIS_CACHED = 1000L * 60 * 15;
+
+    private boolean allowRefresh()
+    {
+        if (newsItems.isEmpty() && eventItems.isEmpty())
+        {
+            Log.v(TAG, "No data yet.");
+            return true;
+        }
+
+        final long lTime = System.currentTimeMillis() - super.getTimeLastDataRefresh();
+        if (lTime >= MILLIS_CACHED)
+        {
+            Log.v(TAG, "Expired. go!");
+            return true;
+        }
+
+        Log.v(TAG, "Not yet expired. Wait.");
+        return false;
     }
 
     private boolean loadNewsFromDUrl()
@@ -151,37 +184,8 @@ public class DataRepository
         return true;
     }
 
-    private void saveCache(String sFile, String jsonData)
-    {
-        if (this.context == null || sFile == null || jsonData == null || sFile.isEmpty() || jsonData.isEmpty())
-            return;
 
-        try (FileOutputStream fos = context.openFileOutput(sFile, Context.MODE_PRIVATE)) {
-            fos.write(jsonData.getBytes(StandardCharsets.UTF_8));
-            Log.i(TAG, "Saving content to chache file " + sFile);
-        } catch (IOException | SecurityException ex) {
-            Log.e(TAG, ex.getMessage(), ex);
-        }
-    }
-
-    @NotNull
-    private JSONObject loadJsonFromCache(@NotNull String sFile)
-    {
-        if (this.context == null || sFile.isEmpty())
-            return new JSONObject();
-
-        try (InputStream in = context.openFileInput(sFile)) {
-            byte[] bytes = readStream(in);
-            if (bytes.length > 0)
-                return new JSONObject(new String(bytes, StandardCharsets.UTF_8));
-        } catch (IOException | SecurityException | JSONException ex) {
-            Log.e(TAG, ex.getMessage(), ex);
-        }
-
-        return new JSONObject();
-    }
-
-    private void loadNewsCache()
+    private int loadNewsCache()
     {
         final JSONObject json = loadJsonFromCache(FILE_NEWS);
         final List<NewsItem> vpNews = loadNewsFromJson(json);
@@ -190,9 +194,11 @@ public class DataRepository
             newsItems.clear();
             newsItems.addAll(vpNews);
         }
+
+        return vpNews.size();
     }
 
-    private void loadEventsCache()
+    private int loadEventsCache()
     {
         final JSONObject json = loadJsonFromCache(FILE_EVENTS);
         final List<EventItem> vpNews = loadEventsFromJson(json);
@@ -201,6 +207,8 @@ public class DataRepository
             eventItems.clear();
             eventItems.addAll(vpNews);
         }
+
+        return vpNews.size();
     }
 
     private List<NewsItem> loadNewsFromJson(@NotNull JSONObject pJson)
@@ -333,22 +341,6 @@ public class DataRepository
 
         Log.i(TAG, "No data available");
         return new JSONObject();
-    }
-
-    @NotNull
-    private byte[] readStream(@Nullable InputStream in) throws IOException {
-        if (in == null)
-            return new byte[0];
-
-        final ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-
-        int nRead;
-        final byte[] data = new byte[1024];
-        while ((nRead = in.read(data, 0, data.length)) != -1)
-            buffer.write(data, 0, nRead);
-
-        buffer.flush();
-        return buffer.toByteArray();
     }
 
     public int getCurrentGames() {

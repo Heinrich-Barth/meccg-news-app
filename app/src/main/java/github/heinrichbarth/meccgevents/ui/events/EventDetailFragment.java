@@ -70,6 +70,7 @@ public class EventDetailFragment extends GenericDetailFragment {
             binding.layoutAddress.setVisibility(View.INVISIBLE);
 
         setActivityTitle(item.getTitle());
+        changeToolbarImage(R.drawable.event_background);
         return binding.getRoot();
     }
 

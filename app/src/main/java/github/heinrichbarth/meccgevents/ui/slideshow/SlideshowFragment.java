@@ -22,6 +22,7 @@ public class SlideshowFragment extends TopActionBarInteractionFragment {
         binding = FragmentSlideshowBinding.inflate(inflater, container, false);
         showWebViewContent(binding.textAbout, "/about/content.html");
         setActivityTitle(getString(R.string.menu_slideshow));
+        changeToolbarImage(R.drawable.resources_background);
         return binding.getRoot();
     }
 

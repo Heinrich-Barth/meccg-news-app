@@ -1,5 +1,6 @@
 package github.heinrichbarth.meccgevents.ui.home;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -35,6 +36,8 @@ public class HomeFragment extends TopActionBarInteractionFragment {
 
     private FragmentHomeBinding binding;
 
+    private static final String TAG ="HomeFragment";
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState)
     {
@@ -61,62 +64,71 @@ public class HomeFragment extends TopActionBarInteractionFragment {
                 /* ignore */
             }
         });
-
+        DataRepository.init(getActivityContext());
         onPopulateViewWithCachedData();
         setActivityTitle(getString(R.string.menu_home));
         return binding.getRoot();
     }
 
-    private void refreshDataFromUrl()
+    @Nullable
+    private Context getActivityContext()
     {
-        if (timeLastRequested == 0 || System.currentTimeMillis() - timeLastRequested > 1000 * 60) {
-            new RefreshTask(this).execute("");
-        }
+        return getActivity() == null ? null : getActivity().getBaseContext();
+    }
+
+    private void refreshDataFromUrl(boolean forceRefresh)
+    {
+        new RefreshTask(this, forceRefresh).execute("");
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
         /* fetch automatically */
-        refreshDataFromUrl();
+        refreshDataFromUrl(false);
         changeToolbarImage(R.drawable.rivendell_wallpaper);
     }
-
-    private static long timeLastRequested = 0;
 
     private static class RefreshTask extends AsyncTask<String, Void, String>
     {
         private final HomeFragment fragment;
+        private final boolean forceRefresh;
 
-        private RefreshTask(HomeFragment homeFragment) {
+        private RefreshTask(HomeFragment homeFragment, boolean bForceRefresh) {
             this.fragment = homeFragment;
+            this.forceRefresh = bForceRefresh;
         }
 
         @Override
         protected String doInBackground(String... params)
         {
-            if (DataRepository.get().fetchData())
-                timeLastRequested = System.currentTimeMillis();
-
-            return "";
+            final Context context = fragment.getActivity() == null ? null : fragment.getActivity().getBaseContext();
+            if (DataRepository.get(context).fetchData(forceRefresh))
+                return "1";
+            else
+                return "";
         }
 
         @Override
         protected void onPostExecute(String result) {
-            fragment.onPopulateViewWithCachedData();
+            if (!result.isEmpty())
+                fragment.onPopulateViewWithCachedData();
         }
     }
 
     private void onPopulateViewWithCachedData()
     {
         final FragmentActivity activity = getActivity();
-        if (activity == null)
+        if (activity == null) {
+            Log.w(TAG, "Cannot get activity");
             return;
+        }
 
         final int maxNews = 0;
-        loadNews(activity, DataRepository.get().getNews(maxNews));
-        loadEvents(activity, DataRepository.get().getEvents(maxNews));
-        updateOnlineGames(DataRepository.get().getCurrentGames());
+        @NotNull DataRepository repository = DataRepository.get();
+        loadNews(activity, repository.getNews(maxNews));
+        loadEvents(activity, repository.getEvents(maxNews));
+        updateOnlineGames(repository.getCurrentGames());
     }
 
     private void updateOnlineGames(int count)
@@ -157,6 +169,7 @@ public class HomeFragment extends TopActionBarInteractionFragment {
     {
         if (vpNews.isEmpty())
         {
+            Log.i(TAG, "No news available to display");
             binding.homeLayoutNews.setVisibility(View.INVISIBLE);
             return;
         }
@@ -177,10 +190,15 @@ public class HomeFragment extends TopActionBarInteractionFragment {
     {
         if (vpNews.isEmpty())
         {
-            if (isOnline)
+
+            if (isOnline) {
+                Log.i(TAG, "No online event available to display");
                 binding.homeLayoutOnline.setVisibility(View.INVISIBLE);
-            else
+            }
+            else {
+                Log.i(TAG, "No event available");
                 binding.homeLayoutEventsRl.setVisibility(View.INVISIBLE);
+            }
 
             return;
         }
