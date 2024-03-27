@@ -48,6 +48,7 @@ public class NewsDetailsFragment extends GenericDetailFragment {
         }
         setActivityTitle(item.getTitle());
         changeToolbarImage(R.drawable.toolbar_image_news);
+        setRefreshCallbackEvent(null);
         return binding.getRoot();
     }
 }

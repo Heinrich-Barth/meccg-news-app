@@ -42,6 +42,7 @@ public class HomeFragment extends TopActionBarInteractionFragment {
                              ViewGroup container, Bundle savedInstanceState)
     {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
+
 /*
         binding.homeFrameLayout.setOnRefreshListener(() -> {
             try {
@@ -67,6 +68,7 @@ public class HomeFragment extends TopActionBarInteractionFragment {
         DataRepository.init(getActivityContext());
         onPopulateViewWithCachedData();
         setActivityTitle(getString(R.string.menu_home));
+        setRefreshCallbackEvent(() -> refreshDataFromUrl(true));
         return binding.getRoot();
     }
 

@@ -29,6 +29,7 @@ import github.heinrichbarth.meccgevents.data.NewsItem;
 import github.heinrichbarth.meccgevents.databinding.FragmentNewsBinding;
 import github.heinrichbarth.meccgevents.ui.GenericDetailFragment;
 import github.heinrichbarth.meccgevents.ui.OnCardClickImpl;
+import github.heinrichbarth.meccgevents.ui.TopActionBarInteractionFragment;
 
 public class NewsFragment extends Fragment {
 
@@ -48,7 +49,6 @@ public class NewsFragment extends Fragment {
         binding.newsSubheadline.setText(GenericDetailFragment.fullDate(item.getSubheadline()));
         binding.newsCard.setClickable(true);
         binding.newsCard.setOnClickListener(new OnCardClickImpl(item.getId(), R.id.action_nav_home_to_newsDetailsFragment));
-
         return binding.getRoot();
     }
 }

@@ -71,6 +71,7 @@ public class EventDetailFragment extends GenericDetailFragment {
 
         setActivityTitle(item.getTitle());
         changeToolbarImage(R.drawable.event_background);
+        setRefreshCallbackEvent(null);
         return binding.getRoot();
     }
 

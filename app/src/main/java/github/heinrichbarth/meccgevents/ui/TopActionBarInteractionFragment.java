@@ -1,6 +1,7 @@
 package github.heinrichbarth.meccgevents.ui;
 
 import android.graphics.Color;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -8,6 +9,7 @@ import android.widget.ImageView;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
@@ -22,6 +24,25 @@ public abstract class TopActionBarInteractionFragment extends Fragment
         final CollapsingToolbarLayout actionBar = getActionBar();
         if (actionBar != null)
             actionBar.setTitle(sText);
+    }
+
+    protected void setRefreshCallbackEvent(@Nullable final ISwipeRefreshListener callback)
+    {
+        final FragmentActivity activity = getActivity();
+        final SwipeRefreshLayout layout = activity == null ? null : activity.findViewById(R.id.swipe_refresh_layout);
+        if (layout == null)
+            return;
+
+        layout.setOnRefreshListener(() -> {
+            try {
+                Log.i("TopActionBarInteractionFragment", "REFRESH ACTION");
+                if (callback != null)
+                    callback.onPerformRefreshAction();
+            }
+            finally {
+                layout.setRefreshing(false);
+            }
+        });
     }
 
     protected void showWebViewContent(@NotNull WebView webView, @NotNull String sFile)
@@ -46,5 +67,9 @@ public abstract class TopActionBarInteractionFragment extends Fragment
             image.setImageResource(imageId);
     }
 
+    public interface ISwipeRefreshListener {
+
+        public void onPerformRefreshAction();
+    }
 
 }
