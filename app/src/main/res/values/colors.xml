@@ -8,6 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="text_default">#FFFFFFFF</color>
+    <color name="game_won">#e0ffcd</color>
+    <color name="game_lost">#ffcbcb</color>
+    <color name="game_draw">#bbe4e9</color>
 
     <color name="headline">#FF000000</color>
     <color name="subheadline">#FF000000</color>

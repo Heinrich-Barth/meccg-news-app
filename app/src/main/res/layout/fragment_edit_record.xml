@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:padding="10dp"
+    tools:context=".ui.records.EditRecordFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:text="@string/tp_section_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="@color/text_default" />
+
+        <EditText
+            android:id="@+id/record_edit_opp_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@color/near_black"
+            android:ems="10"
+            android:hint="@string/tp_hint_opponent_name"
+            android:inputType="text"
+            android:padding="10dp"
+            android:textColor="@color/text_default"
+            android:textColorHint="@color/light_black" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp"
+            android:text="@string/tp_section_mps"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/light_black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/record_edit_my_mps"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@color/near_black"
+                android:ems="10"
+                android:hint="@string/tp_hint_mps"
+                android:inputType="number"
+                android:padding="10dp"
+                android:textColor="@color/text_default"
+                android:textColorHint="@color/light_black" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <EditText
+                android:id="@+id/record_edit_opp_mps"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@color/near_black"
+                android:ems="10"
+                android:hint="@string/tp_hint_opponent_mps"
+                android:inputType="number"
+                android:padding="10dp"
+                android:textColor="@color/text_default"
+                android:textColorHint="@color/light_black" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp"
+            android:text="@string/tp_section_tp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/light_black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/record_edit_my_tp"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:background="@color/near_black"
+                android:ems="10"
+                android:hint="@string/tp_hint_tp"
+                android:inputType="number"
+                android:padding="10dp"
+                android:textColor="@color/text_default"
+                android:textColorHint="@color/light_black" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <EditText
+                android:id="@+id/record_edit_opp_tp"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@color/near_black"
+                android:ems="10"
+                android:hint="@string/tp_hint_opponent_tp"
+                android:inputType="number"
+                android:padding="10dp"
+                android:textColor="@color/text_default"
+                android:textColorHint="@color/light_black" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/record_edit_notes"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/near_black"
+            android:ems="10"
+            android:gravity="start|top"
+            android:hint="@string/tp_hint_text"
+            android:inputType="textMultiLine"
+            android:padding="10dp"
+            android:textColorHint="@color/light_black" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_editrecord_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tp_save" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/button_editrecord_cancal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tp_cancel" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

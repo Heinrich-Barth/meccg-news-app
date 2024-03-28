@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/background"
+    tools:context=".ui.records.TropyEntryFragment">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        app:cardBackgroundColor="@color/near_black"
+        app:cardCornerRadius="50dp"
+        app:contentPadding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/record_detail_tp_self_card"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@color/game_draw"
+                app:cardCornerRadius="50dp">
+
+                <TextView
+                    android:id="@+id/record_detail_tp_self"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center|center_horizontal"
+                    android:text="6"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="@color/background"
+                    android:textStyle="bold" />
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp">
+
+                <TextView
+                    android:id="@+id/record_detail_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/light_black" />
+
+                <TextView
+                    android:id="@+id/record_detail_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textColor="@color/light_black" />
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/record_detail_tp_opp_card"
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                app:cardBackgroundColor="@color/game_draw"
+                app:cardCornerRadius="50dp">
+
+                <TextView
+                    android:id="@+id/record_detail_tp_opp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center|center_horizontal"
+                    android:text="0"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="@color/background"
+                    android:textStyle="bold" />
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</FrameLayout>

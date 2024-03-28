@@ -51,12 +51,14 @@ class SharedPrefsData {
 
     protected void saveCache(String sFile, String jsonData)
     {
-        if (this.context == null || sFile == null || jsonData == null || sFile.isEmpty() || jsonData.isEmpty())
+        if (this.context == null || sFile == null || jsonData == null || sFile.isEmpty() || jsonData.isEmpty()) {
+            Log.w(TAG, "No context or data provided");
             return;
+        }
 
         try (FileOutputStream fos = context.openFileOutput(sFile, Context.MODE_PRIVATE)) {
             fos.write(jsonData.getBytes(StandardCharsets.UTF_8));
-            Log.i(TAG, "Saving content to chache file " + sFile);
+            Log.i(TAG, "Saving content to cache file " + sFile);
         } catch (IOException | SecurityException ex) {
             Log.e(TAG, ex.getMessage(), ex);
         }

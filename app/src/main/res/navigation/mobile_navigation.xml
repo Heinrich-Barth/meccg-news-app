@@ -77,4 +77,10 @@
             android:id="@+id/action_eventListFragment_to_nav_home"
             app:destination="@id/nav_home" />
     </fragment>
+    <fragment
+        android:id="@+id/nav_trackrecords"
+        android:name="github.heinrichbarth.meccgevents.ui.records.TrackRecordsFragment"
+        android:label="fragment_track_records"
+        tools:layout="@layout/fragment_track_records">
+    </fragment>
 </navigation>

@@ -1,5 +1,6 @@
 package github.heinrichbarth.meccgevents.ui.events;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,17 +15,13 @@ import android.view.ViewGroup;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import github.heinrichbarth.meccgevents.R;
 import github.heinrichbarth.meccgevents.data.DataRepository;
 import github.heinrichbarth.meccgevents.data.EventItem;
-import github.heinrichbarth.meccgevents.data.NewsItem;
 import github.heinrichbarth.meccgevents.databinding.FragmentEventListBinding;
 import github.heinrichbarth.meccgevents.ui.GenericDetailFragment;
-import github.heinrichbarth.meccgevents.ui.news.NewsFragment;
 
 public class EventListFragment extends GenericDetailFragment {
 
@@ -64,5 +61,6 @@ public class EventListFragment extends GenericDetailFragment {
 
         ft.commit();
     }
+
 
 }

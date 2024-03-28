@@ -96,8 +96,6 @@ public class HomeFragment extends TopActionBarInteractionFragment {
         new RefreshTask(this, forceRefresh).execute("");
     }
 
-
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
@@ -129,8 +127,6 @@ public class HomeFragment extends TopActionBarInteractionFragment {
                 .setCancelable(false)
                 .create()
                 .show();
-
-
     }
 
 

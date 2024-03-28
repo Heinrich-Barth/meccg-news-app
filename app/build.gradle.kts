@@ -63,6 +63,7 @@ dependencies {
     implementation(libs.legacy.support.v4)
     implementation(libs.recyclerview)
     implementation(libs.play.services.maps)
+    implementation(libs.preference)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

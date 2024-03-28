@@ -31,11 +31,17 @@ public class DataRepository extends SharedPrefsData
     private static final String FILE_NEWS = "news.json";
     private static final String FILE_EVENTS = "events.json";
 
+    private static final String FILE_RECORDS = "records.json";
+
     @NotNull
     private static final List<NewsItem> newsItems = new ArrayList<>();
 
     @NotNull
     private static final List<EventItem> eventItems = new ArrayList<>();
+
+    private static final List<TrackRecord> trackRecords = new ArrayList<>();
+
+    private static boolean IS_INIT = false;
 
     private static int countGamesMellon = 0;
 
@@ -101,6 +107,44 @@ public class DataRepository extends SharedPrefsData
     }
 
     @NotNull
+    public List<TrackRecord> getRecords()
+    {
+        if (trackRecords.isEmpty())
+            return Collections.emptyList();
+
+        final List<TrackRecord> result = new ArrayList<>(trackRecords.size());
+        result.addAll(trackRecords);
+        Collections.reverse(result);
+        return result;
+    }
+
+    public void saveRecords()
+    {
+        try {
+            final JSONObject json = new JSONObject();
+            final JSONArray arr = new JSONArray();
+
+            trackRecords.forEach(_e -> arr.put(_e.toJson()));
+            json.put("data", arr);
+
+            saveCache(FILE_RECORDS, json.toString());
+            Log.i(TAG, trackRecords.size() + " record(s) saved");
+            Log.i(TAG, json.toString());
+        }
+        catch (JSONException ex)
+        {
+            Log.e(TAG, ex.getMessage(), ex);
+        }
+    }
+
+    @NotNull
+    public void addRecord(@Nullable TrackRecord record)
+    {
+        if (record != null)
+            trackRecords.add(record);
+    }
+
+    @NotNull
     public static DataRepository get()
     {
         return get(null);
@@ -114,12 +158,33 @@ public class DataRepository extends SharedPrefsData
 
     public static void init(@Nullable Context context)
     {
+        //if (IS_INIT)
+        //    return;
+
         final DataRepository INSTANCE = new DataRepository(context);
         final int news = INSTANCE.loadNewsCache();
         final int events = INSTANCE.loadEventsCache();
+        final int records = INSTANCE.loadGameRecords();
 
         Log.i(TAG, "Cached events: " + events);
         Log.i(TAG, "Cached news: " + news);
+        Log.i(TAG, "Cached records: " + records);
+
+        IS_INIT = true;
+    }
+
+    private int loadGameRecords() {
+
+        trackRecords.clear();
+        final JSONObject pJson = loadJsonFromCache(FILE_RECORDS);
+        getJsonList(JsonUtils.requireArray(pJson, "data")).forEach(_json ->
+        {
+            final TrackRecord item = TrackRecord.fromJson(_json);
+            if (item != null)
+                trackRecords.add(item);
+        });
+
+        return  trackRecords.size();
     }
 
     public boolean fetchData(boolean forceRefresh)
@@ -261,6 +326,27 @@ public class DataRepository extends SharedPrefsData
                 final JSONObject candidate = data.getJSONObject("attributes");
                 candidate.put("id", "" + data.getInt("id"));
                 vpResult.add(candidate);
+            }
+            catch (JSONException exIgnore)
+            {
+                /* ignore */
+            }
+        }
+        return vpResult;
+    }
+
+    private List<JSONObject> getJsonList(@NotNull JSONArray pArray)
+    {
+        final int len = pArray.length();
+        if (len == 0)
+            return Collections.emptyList();
+
+        final List<JSONObject> vpResult = new ArrayList<>(len);
+        for (int i = 0; i < len; i++)
+        {
+            try {
+                final JSONObject data = pArray.getJSONObject(i);
+                vpResult.add(data);
             }
             catch (JSONException exIgnore)
             {
