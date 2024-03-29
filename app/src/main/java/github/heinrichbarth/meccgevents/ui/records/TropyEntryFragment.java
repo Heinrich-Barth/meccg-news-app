@@ -55,14 +55,16 @@ public class TropyEntryFragment extends Fragment {
         binding.recordDetailTpSelf.setText(record.getTournamentPoints());
         binding.recordDetailTpOpp.setText(record.getOpponentTournamentPoints());
 
-        final int tpSelf = toInt(record.getTournamentPoints());
-        final int tpOpp = toInt(record.getOpponentTournamentPoints());
-
-        int colWon = ContextCompat.getColor(getContext(), R.color.game_won);
-        int colLost = ContextCompat.getColor(getContext(), R.color.game_lost);
-
         binding.recordDetailTpSelf.setText(record.getTournamentPoints());
         binding.recordDetailTpOpp.setText(record.getOpponentTournamentPoints());
+
+        if(getContext() == null)
+            return binding.getRoot();
+
+        final int colWon = ContextCompat.getColor(getContext(), R.color.game_won);
+        final int colLost = ContextCompat.getColor(getContext(), R.color.game_lost);
+        final int tpSelf = toInt(record.getTournamentPoints());
+        final int tpOpp = toInt(record.getOpponentTournamentPoints());
 
         if (tpSelf > tpOpp)
         {

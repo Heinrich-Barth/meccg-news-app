@@ -8,7 +8,7 @@
     <string name="tp_hint_text">Notes</string>
     <string name="tp_section_tp">Tournament Points</string>
     <string name="tp_section_mps">Marshalling Points</string>
-    <string name="tp_section_title">Game Record</string>
+    <string name="tp_section_title">Edit Game Record</string>
     <string name="tp_save">Save</string>
     <string name="tp_cancel">Cancel</string>
     <string name="tp_saved">Record saved/updates</string>
@@ -26,7 +26,6 @@
     <string name="menu_gallery">Resources</string>
     <string name="menu_trackrecords">Game Records</string>
     <string name="menu_slideshow">About / Legal</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="menu_news_list">News &amp; Talk</string>
     <string name="news_detail_list_introduction">Stay a while and read up on the latest rumours from the Green Dragon.</string>
@@ -42,39 +41,10 @@
     <string name="events_text_title">Details</string>
 
     <string name="recentnews_title">Latest News</string>
-    <string name="recentnews_empty">No news available</string>
 
     <string name="upcomingevents_title_online">Upcoming Events (online)</string>
     <string name="upcomingevents_title">Upcoming Events</string>
-    <string name="upcomingevents_empty">No upcoming events</string>
-    <string name="title_activity_news_details">NewsDetailsActivity</string>
-    <string name="large_text">
-        "large_text is the metaphor2.\n\n"
 
-        "A material metaphor is the unifying theory of a rationalized space and a system of motion."
-        "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
-        "technologically advanced and open to imagination and magic.\n"
-        "Surfaces and edges of the material provide visual cues that are grounded in reality. The "
-        "use of familiar tactile attributes helps users quickly understand affordances. Yet the "
-        "flexibility of the material creates new affordances that supercede those in the physical "
-        "world, without breaking the rules of physics.\n"
-        "The fundamentals of light, surface, and movement are key to conveying how objects move, "
-        "interact, and exist in space and in relation to each other. Realistic lighting shows "
-        "seams, divides space, and indicates moving parts"
-    </string>
-    <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
-
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
-
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="trackrecords_introtext">Keep track of your game results. </string>
 
 </resources>

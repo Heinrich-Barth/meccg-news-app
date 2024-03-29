@@ -67,8 +67,8 @@ abstract class TextblocksElement implements CardDataItem
             for (int i = 0; i < size; i++)
             {
                 final JSONObject pElem = pField.getJSONObject(i);
-                final String title = requireString(pElem, "title");
-                final String text = requireString(pElem, "text");
+                final String title = requireString(pElem, "title").trim();
+                final String text = requireString(pElem, "text").trim();
 
                 if (!title.isEmpty() || !text.isEmpty())
                     vpList.add(new HtmlTextElementImpl(title, text));

@@ -53,14 +53,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:drawableTintMode="multiply"
                     android:text="@string/recentnews_title"
                     android:textAlignment="viewStart"
                     android:textAllCaps="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textColor="@color/text_default"
+                    android:textColor="@color/green"
                     app:drawableEndCompat="@android:drawable/ic_menu_send"
                     app:drawableStartCompat="@android:drawable/ic_menu_sort_by_size"
-                    app:drawableTint="@color/text_default" />
+                    app:drawableTint="@color/green" />
             </LinearLayout>
 
             <LinearLayout
@@ -87,14 +88,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:drawableTintMode="multiply"
                     android:text="@string/upcomingevents_title"
                     android:textAlignment="viewStart"
                     android:textAllCaps="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textColor="@color/text_default"
+                    android:textColor="@color/green"
                     app:drawableEndCompat="@android:drawable/ic_menu_send"
                     app:drawableStartCompat="@android:drawable/ic_menu_my_calendar"
-                    app:drawableTint="@color/text_default" />
+                    app:drawableTint="@color/green" />
             </LinearLayout>
 
             <LinearLayout
@@ -121,14 +123,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:drawableTintMode="multiply"
                     android:text="@string/upcomingevents_title_online"
                     android:textAlignment="viewStart"
                     android:textAllCaps="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textColor="@color/text_default"
+                    android:textColor="@color/green"
                     app:drawableEndCompat="@android:drawable/ic_menu_send"
                     app:drawableStartCompat="@android:drawable/ic_menu_today"
-                    app:drawableTint="@color/text_default" />
+                    app:drawableTint="@color/green" />
             </LinearLayout>
 
             <LinearLayout

@@ -6,14 +6,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import android.provider.ContactsContract;
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -31,36 +34,67 @@ public class EditRecordFragment extends DialogFragment {
 
     private FragmentEditRecordBinding binding;
 
+    @NotNull
+    private static final String[] POINTS = {"0", "1", "2", "3", "4", "5", "6"};
+
     public EditRecordFragment (@NotNull TrackRecordsFragment caller, @Nullable TrackRecord data)
     {
         this.data = data;
         this.caller = caller;
     }
 
+    private boolean isValidEntry(@NotNull TrackRecord elem)
+    {
+        return !elem.getOpponentName().isEmpty()
+                && !elem.getTournamentPoints().isEmpty()
+                && !elem.getOpponentTournamentPoints().isEmpty();
+    }
+
+
     private void doSave(View view)
     {
+        boolean bSave = false;
         if (data == null)
         {
             final TrackRecord elem = new TrackRecord();
-            populateRecord(elem);
-            DataRepository.get().addRecord(elem);
+
+            if (populateRecord(elem)) {
+                DataRepository.get().addRecord(elem);
+                bSave = true;
+            }
         }
         else
-            populateRecord(data);
+            bSave = populateRecord(data);
 
         dismiss();
-        caller.onSaveRecord();
+
+        if (bSave)
+            caller.onSaveRecord();
     }
 
-    private void populateRecord(@NotNull TrackRecord record)
+    private boolean populateRecord(@NotNull TrackRecord record)
     {
         record.setNotes(getText(binding.recordEditNotes));
         record.setOpponentName(getText(binding.recordEditOppName));
 
         record.setPoints(getText(binding.recordEditMyMps));
-        record.setTournamentPoints(getText(binding.recordEditMyTp));
-        record.setOpponentTournamentPoints(getText(binding.recordEditOppTp));
+        record.setTournamentPoints(getText(binding.selectTpSelfLayout));
+        record.setOpponentTournamentPoints(getText(binding.selectTpOppLayout));
         record.setOpponentPoints(getText(binding.recordEditOppMps));
+
+        return isValidEntry(record);
+    }
+
+    private String getText(@Nullable TextInputLayout pInput)
+    {
+        if (pInput == null)
+            return "";
+
+        final EditText pEditText = pInput.getEditText();
+        if (pEditText == null)
+            return "";
+        else
+            return getText(pEditText);
     }
 
     private String getText(@NotNull EditText input)
@@ -100,6 +134,13 @@ public class EditRecordFragment extends DialogFragment {
 
         binding.buttonEditrecordSave.setClickable(true);
         binding.buttonEditrecordSave.setOnClickListener(this::doSave);
+
+
+        binding.selectTpSelf.setThreshold(1);
+        binding.selectTpSelf.setAdapter(new ArrayAdapter<>(getContext(), R.layout.layout_tournament_points, POINTS));
+
+        binding.selectTpOpp.setThreshold(1);
+        binding.selectTpOpp.setAdapter(new ArrayAdapter<>(getContext(), R.layout.layout_tournament_points, POINTS));
 
         if (data != null)
             populateView(data);
