@@ -116,7 +116,7 @@ public class TrackRecordsFragment extends TopActionBarInteractionFragment {
         FragmentTransaction ft = fragmentManager.beginTransaction();
 
         for (TrackRecord item : records)
-            ft.add(R.id.track_records_list, new TropyEntryFragment(item));
+            ft.add(R.id.track_records_list, new TropyEntryFragment(this, item));
 
         ft.commit();
     }
@@ -126,6 +126,18 @@ public class TrackRecordsFragment extends TopActionBarInteractionFragment {
     {
         super.onDestroyView();
         binding = null;
+    }
+
+    public void removeRecordEntry(long id)
+    {
+        final View view = getView();
+        final boolean isRemoved = DataRepository.get(getActivityContext()).removeRecord(id);
+        if (view == null)
+            return;
+        if (isRemoved)
+            Snackbar.make(view, getText(R.string.record_delete_success), Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        else
+            Snackbar.make(view, getText(R.string.record_delete_failure), Snackbar.LENGTH_LONG).setAction("Action", null).show();
     }
 
     static interface IEditRecordCallback

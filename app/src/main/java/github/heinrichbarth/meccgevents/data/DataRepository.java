@@ -19,6 +19,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import github.heinrichbarth.meccgevents.BuildConfig;
@@ -118,7 +119,7 @@ public class DataRepository extends SharedPrefsData
         return result;
     }
 
-    public void saveRecords()
+    public boolean saveRecords()
     {
         try {
             final JSONObject json = new JSONObject();
@@ -130,11 +131,14 @@ public class DataRepository extends SharedPrefsData
             saveCache(FILE_RECORDS, json.toString());
             Log.i(TAG, trackRecords.size() + " record(s) saved");
             Log.i(TAG, json.toString());
+            return true;
         }
         catch (JSONException ex)
         {
             Log.e(TAG, ex.getMessage(), ex);
         }
+
+        return false;
     }
 
     @NotNull
@@ -444,6 +448,26 @@ public class DataRepository extends SharedPrefsData
 
     public int getCurrentGames() {
         return countGamesMellon;
+    }
+
+    private boolean removerRecordById(long id)
+    {
+        final Iterator<TrackRecord> it = trackRecords.iterator();
+        while (it.hasNext())
+        {
+            TrackRecord record = it.next();
+            if (record.getId() == id)
+            {
+                it.remove();
+                return true;
+            }
+        }
+
+        return false;
+    }
+    public boolean removeRecord(long id)
+    {
+        return removerRecordById(id) && saveRecords();
     }
 }
 

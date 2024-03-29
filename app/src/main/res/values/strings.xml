@@ -13,6 +13,14 @@
     <string name="tp_cancel">Cancel</string>
     <string name="tp_saved">Record saved/updates</string>
 
+    <string name="record_delete_title">Delete this record?</string>
+    <string name="record_delete_text">Do you want to delete this record?</string>
+    <string name="record_delete_yes">Yes, delete</string>
+    <string name="record_delete_no">Abort</string>
+    <string name="record_delete_success">Record removed</string>
+    <string name="record_delete_failure">Record removed</string>
+
+
     <string name="app_name">MECCG Community App</string>
     <string name="app_name_id">MECCG Community</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
