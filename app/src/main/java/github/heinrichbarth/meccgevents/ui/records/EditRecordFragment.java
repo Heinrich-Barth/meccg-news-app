@@ -50,6 +50,16 @@ public class EditRecordFragment extends DialogFragment {
                 && !elem.getOpponentTournamentPoints().isEmpty();
     }
 
+    @NotNull
+    private String[] createPointArray(int nMax)
+    {
+        final String[] arr = new String[nMax];
+        for (int i = 0; i < nMax; i++)
+            arr[i] = "" + i;
+
+        return arr;
+    }
+
 
     private void doSave(View view)
     {
@@ -135,12 +145,20 @@ public class EditRecordFragment extends DialogFragment {
         binding.buttonEditrecordSave.setClickable(true);
         binding.buttonEditrecordSave.setOnClickListener(this::doSave);
 
+        final String[] arrTPs = createPointArray(6);
+        final String[] arrMps = createPointArray(50);
 
         binding.selectTpSelf.setThreshold(1);
-        binding.selectTpSelf.setAdapter(new ArrayAdapter<>(getContext(), R.layout.layout_tournament_points, POINTS));
+        binding.selectTpSelf.setAdapter(new ArrayAdapter<>(getContext(), R.layout.layout_tournament_points, arrTPs));
 
         binding.selectTpOpp.setThreshold(1);
-        binding.selectTpOpp.setAdapter(new ArrayAdapter<>(getContext(), R.layout.layout_tournament_points, POINTS));
+        binding.selectTpOpp.setAdapter(new ArrayAdapter<>(getContext(), R.layout.layout_tournament_points, arrTPs));
+
+        binding.recordEditMyMps.setThreshold(1);
+        binding.recordEditMyMps.setAdapter(new ArrayAdapter<>(getContext(), R.layout.layout_tournament_points, arrMps));
+
+        binding.recordEditOppMps.setThreshold(1);
+        binding.recordEditOppMps.setAdapter(new ArrayAdapter<>(getContext(), R.layout.layout_tournament_points, arrMps));
 
         if (data != null)
             populateView(data);

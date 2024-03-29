@@ -51,35 +51,57 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/record_edit_my_mps"
-                android:layout_width="150dp"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/record_edit_my_mps_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:background="@color/near_black"
-                android:ems="10"
                 android:hint="@string/tp_hint_mps"
-                android:inputType="number"
-                android:padding="10dp"
-                android:textColor="@color/text_default"
-                android:textColorHint="@color/light_black" />
+                android:textColorHint="@color/light_black"
+                app:helperTextTextColor="@color/light_black"
+                app:hintTextColor="@color/text_default"
+                app:placeholderTextColor="@color/light_black">
+
+                <AutoCompleteTextView
+                    android:id="@+id/record_edit_my_mps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/near_black"
+                    android:inputType="none"
+                    android:textColor="@color/light_black"
+                    android:textColorHint="@color/light_black"
+                    app:dropDownBackgroundTint="@color/near_black" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Space
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
-            <EditText
-                android:id="@+id/record_edit_opp_mps"
-                android:layout_width="150dp"
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/record_edit_opp_mps_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
-                android:background="@color/near_black"
-                android:ems="10"
                 android:hint="@string/tp_hint_opponent_mps"
-                android:inputType="number"
-                android:padding="10dp"
-                android:textColor="@color/text_default"
-                android:textColorHint="@color/light_black" />
+                android:textColorHint="@color/light_black"
+                app:helperTextTextColor="@color/light_black"
+                app:hintTextColor="@color/text_default"
+                app:placeholderTextColor="@color/light_black">
+
+                <AutoCompleteTextView
+                    android:id="@+id/record_edit_opp_mps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/near_black"
+                    android:inputType="none"
+                    android:textColor="@color/light_black"
+                    android:textColorHint="@color/light_black"
+                    app:dropDownBackgroundTint="@color/near_black" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 
