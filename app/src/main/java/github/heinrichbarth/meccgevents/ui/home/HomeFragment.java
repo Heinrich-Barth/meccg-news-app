@@ -1,7 +1,5 @@
 package github.heinrichbarth.meccgevents.ui.home;
 
-import androidx.appcompat.app.AlertDialog;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +15,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -36,9 +35,9 @@ import github.heinrichbarth.meccgevents.data.EventItem;
 import github.heinrichbarth.meccgevents.data.NewsItem;
 import github.heinrichbarth.meccgevents.databinding.FragmentHomeBinding;
 import github.heinrichbarth.meccgevents.ui.OnCardClickImpl;
+import github.heinrichbarth.meccgevents.ui.TopActionBarInteractionFragment;
 import github.heinrichbarth.meccgevents.ui.events.EventFragment;
 import github.heinrichbarth.meccgevents.ui.news.NewsFragment;
-import github.heinrichbarth.meccgevents.ui.TopActionBarInteractionFragment;
 
 public class HomeFragment extends TopActionBarInteractionFragment {
 
@@ -73,7 +72,7 @@ public class HomeFragment extends TopActionBarInteractionFragment {
         binding.titleUpcomingEventsOnline.setOnClickListener(new OnCardClickImpl(R.id.action_nav_home_to_eventListFragment));
 
         DataRepository.init(getActivityContext());
-        onPopulateViewWithCachedData();
+        onPopulateViewWithCachedData(true, true, true);
         setActivityTitle(getString(R.string.menu_home));
 
         return binding.getRoot();
@@ -93,7 +92,8 @@ public class HomeFragment extends TopActionBarInteractionFragment {
 
     private void refreshDataFromUrl(boolean forceRefresh)
     {
-        new RefreshTask(this, forceRefresh).execute("");
+        new RefreshNewsTask(this, forceRefresh).execute("");
+        new RefreshEventsTask(this, forceRefresh).execute("");
     }
 
     @Override
@@ -159,7 +159,7 @@ public class HomeFragment extends TopActionBarInteractionFragment {
         return null;
     }
 
-    private static class RefreshTask extends AsyncTask<String, Void, String>
+    private abstract static class RefreshTask extends AsyncTask<String, Void, String>
     {
         private final HomeFragment fragment;
         private final boolean forceRefresh;
@@ -173,21 +173,70 @@ public class HomeFragment extends TopActionBarInteractionFragment {
         protected String doInBackground(String... params)
         {
             final Context context = fragment.getActivity() == null ? null : fragment.getActivity().getBaseContext();
-            if (DataRepository.get(context).fetchData(forceRefresh))
+            if (DataRepository.get(context).fetchData(forceRefresh, fetchNews(), fetchEvents(), false))
                 return "1";
             else
                 return "";
         }
 
+        protected boolean fetchNews()
+        {
+            return false;
+        }
+
+        protected boolean fetchEvents()
+        {
+            return false;
+        }
+
         @Override
-        protected void onPostExecute(String result) {
-            if (!result.isEmpty())
-                fragment.onPopulateViewWithCachedData();
+        protected void onPostExecute(String result)
+        {
+            if (result.isEmpty() || fragment == null)
+                return;
+
+            try {
+                fragment.onPopulateViewWithCachedData(fetchNews(), fetchEvents(), false);
+            }
+            catch (RuntimeException exIgnore)
+            {
+                /* since it is async, the fragment might be destroyed before this here is done */
+            }
+
         }
     }
 
-    private void onPopulateViewWithCachedData()
+    private static class RefreshNewsTask extends RefreshTask
     {
+        private RefreshNewsTask(HomeFragment homeFragment, boolean bForceRefresh) {
+            super(homeFragment, bForceRefresh);
+        }
+
+        @Override
+        protected boolean fetchNews() {
+            return true;
+        }
+
+    }
+
+    private static class RefreshEventsTask extends RefreshTask
+    {
+        private RefreshEventsTask(HomeFragment homeFragment, boolean bForceRefresh) {
+            super(homeFragment, bForceRefresh);
+        }
+
+        @Override
+        protected boolean fetchEvents() {
+            return true;
+        }
+
+    }
+
+    private void onPopulateViewWithCachedData(boolean news, boolean events, boolean onlineGames)
+    {
+        if (!news && !events && !onlineGames)
+            return;
+
         final FragmentActivity activity = getActivity();
         if (activity == null) {
             Log.w(TAG, "Cannot get activity");
@@ -196,16 +245,24 @@ public class HomeFragment extends TopActionBarInteractionFragment {
 
         final int maxNews = 3;
         @NotNull DataRepository repository = DataRepository.get();
-        loadNews(activity, repository.getNews(maxNews));
-        loadEvents(activity, repository.getEvents(maxNews, false), false);
-        loadEvents(activity, repository.getEvents(maxNews, true), true);
-        updateOnlineGames(repository.getCurrentGames());
+        if (news)
+            loadNews(activity, repository.getNews(maxNews));
+
+        if (events) {
+            loadEvents(activity, repository.getEvents(maxNews, false), false);
+            loadEvents(activity, repository.getEvents(maxNews, true), true);
+        }
+
+        if (onlineGames)
+            updateOnlineGames(repository.getCurrentGames());
     }
 
     private void updateOnlineGames(int count)
     {
-        if (count < 0)
+        if (count < 1) {
+            binding.layoutGamesOnline.setVisibility(View.INVISIBLE);
             return;
+        }
 
         final String sText = binding.buttonCurrentGamesMellon.getText().toString().split(":")[0];
         binding.buttonCurrentGamesMellon.setText(sText + ": " + count);

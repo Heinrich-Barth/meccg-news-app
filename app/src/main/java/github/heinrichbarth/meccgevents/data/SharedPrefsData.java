@@ -19,7 +19,8 @@ class SharedPrefsData {
     private static final String TAG = "SharedPrefsData";
 
     private static final String SHARED_FILE = "github.heinrichbarth.meccgevents";
-    private static final String KEY_DATA_REFRESH = "data_refresh";
+    private static final String KEY_DATA_REFRESH_NEWS = "data_refresh_news";
+    private static final String KEY_DATA_REFRESH_EVENTS = "data_refresh_events";
     private static final String KEY_TERMS = "terms";
 
     private final Context context;
@@ -28,14 +29,23 @@ class SharedPrefsData {
         this.context = applicationContext;
     }
 
-    protected long getTimeLastDataRefresh()
+    protected long getTimeLastDataRefreshNews()
     {
-        return getSharedPrefLong(context, KEY_DATA_REFRESH, 0L);
+        return getSharedPrefLong(context, KEY_DATA_REFRESH_NEWS, 0L);
     }
 
-    protected void updateTimeLastDataRefresh()
+    protected long getTimeLastDataRefreshEvents()
     {
-        setSharedPrefLong(context, KEY_DATA_REFRESH, System.currentTimeMillis());
+        return getSharedPrefLong(context, KEY_DATA_REFRESH_EVENTS, 0L);
+    }
+
+    protected void updateTimeLastDataRefreshNews()
+    {
+        setSharedPrefLong(context, KEY_DATA_REFRESH_NEWS, System.currentTimeMillis());
+    }
+    protected void updateTimeLastDataRefreshEvents()
+    {
+        setSharedPrefLong(context, KEY_DATA_REFRESH_EVENTS, System.currentTimeMillis());
     }
 
     public boolean hasAgreedToTerms()

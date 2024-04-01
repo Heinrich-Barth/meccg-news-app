@@ -1,17 +1,14 @@
 package github.heinrichbarth.meccgevents.data;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -23,8 +20,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import github.heinrichbarth.meccgevents.BuildConfig;
-import github.heinrichbarth.meccgevents.MainActivity;
-import github.heinrichbarth.meccgevents.R;
 
 public class DataRepository extends SharedPrefsData
 {
@@ -42,8 +37,6 @@ public class DataRepository extends SharedPrefsData
 
     private static final List<TrackRecord> trackRecords = new ArrayList<>();
 
-    private static boolean IS_INIT = false;
-
     private static int countGamesMellon = 0;
 
     private DataRepository(@Nullable Context applicationContext) {
@@ -58,6 +51,7 @@ public class DataRepository extends SharedPrefsData
 
     @NotNull
     private static final String URL_NEWS = BuildConfig.URL_NEWS_ALL;
+
 
     @NotNull
     public List<NewsItem> getNews(int nMax)
@@ -173,8 +167,21 @@ public class DataRepository extends SharedPrefsData
         Log.i(TAG, "Cached events: " + events);
         Log.i(TAG, "Cached news: " + news);
         Log.i(TAG, "Cached records: " + records);
+    }
 
-        IS_INIT = true;
+    public List<String> getEventNames()
+    {
+        if (eventItems.isEmpty())
+            return Collections.emptyList();
+
+        final List<String> vsNames = new ArrayList<>(eventItems.size());
+        eventItems.forEach(event -> {
+            if (!vsNames.contains(event.getTitle()) && !event.getTitle().isEmpty())
+                vsNames.add(event.getTitle());
+        });
+
+        Collections.sort(vsNames);
+        return vsNames;
     }
 
     private int loadGameRecords() {
@@ -191,20 +198,45 @@ public class DataRepository extends SharedPrefsData
         return  trackRecords.size();
     }
 
-    public boolean fetchData(boolean forceRefresh)
+    public boolean fetchData(boolean forceRefresh, boolean bNews, boolean bEvents, boolean bGames)
     {
-        final JSONObject data = getHttpJson(URL_GAMES_MELLON);
-        countGamesMellon = JsonUtils.requireInteger(data, "games");
+        if (bGames) {
+            final JSONObject data = getHttpJson(URL_GAMES_MELLON);
+            countGamesMellon = JsonUtils.requireInteger(data, "games");
+        }
 
-        if (!forceRefresh && !allowRefresh())
+        if (!bNews && !bEvents)
             return false;
 
         if (forceRefresh)
             Log.i(TAG, "Force cache update");
 
-        if (loadNewsFromDUrl() && loadEventsFromDUrl())
+        return (bNews && fetchDataNews(forceRefresh)) ||
+               (bEvents && fetchDataEvents(forceRefresh));
+    }
+
+    private boolean fetchDataNews(boolean forceRefresh)
+    {
+        if (!forceRefresh && !allowRefresh(true))
+            return false;
+
+        if (loadNewsFromDUrl())
         {
-            updateTimeLastDataRefresh();
+            updateTimeLastDataRefreshNews();
+            return true;
+        }
+        else
+            return false;
+    }
+
+    private boolean fetchDataEvents(boolean forceRefresh)
+    {
+        if (!forceRefresh && !allowRefresh(false))
+            return false;
+
+        if (loadEventsFromDUrl())
+        {
+            updateTimeLastDataRefreshEvents();
             return true;
         }
         else
@@ -213,7 +245,7 @@ public class DataRepository extends SharedPrefsData
 
     private static final long MILLIS_CACHED = 1000L * 60 * 15;
 
-    private boolean allowRefresh()
+    private boolean allowRefresh(boolean news)
     {
         if (newsItems.isEmpty() && eventItems.isEmpty())
         {
@@ -221,7 +253,8 @@ public class DataRepository extends SharedPrefsData
             return true;
         }
 
-        final long lTime = System.currentTimeMillis() - super.getTimeLastDataRefresh();
+        final long lCacheTime = news ? super.getTimeLastDataRefreshNews() : getTimeLastDataRefreshEvents();
+        final long lTime = System.currentTimeMillis() - lCacheTime;
         if (lTime >= MILLIS_CACHED)
         {
             Log.v(TAG, "Expired. go!");
@@ -326,10 +359,7 @@ public class DataRepository extends SharedPrefsData
         for (int i = 0; i < len; i++)
         {
             try {
-                final JSONObject data = pArray.getJSONObject(i);
-                final JSONObject candidate = data.getJSONObject("attributes");
-                candidate.put("id", "" + data.getInt("id"));
-                vpResult.add(candidate);
+                vpResult.add(pArray.getJSONObject(i));
             }
             catch (JSONException exIgnore)
             {
@@ -414,6 +444,9 @@ public class DataRepository extends SharedPrefsData
 
     public JSONObject getHttpJson(@NotNull String sUrl)  {
 
+        if (!sUrl.startsWith("https://"))
+            return new JSONObject();
+
         HttpURLConnection urlConnection = null;
 
         try {
@@ -424,6 +457,7 @@ public class DataRepository extends SharedPrefsData
             urlConnection.setConnectTimeout(1000 * 20);
             urlConnection.setReadTimeout(1000 * 20);
             urlConnection.setRequestMethod("GET");
+            urlConnection.setRequestProperty ("Authorization", BuildConfig.URL_AUTH_KEY);
 
             final int code = urlConnection.getResponseCode();
             if (code != HttpURLConnection.HTTP_OK)
