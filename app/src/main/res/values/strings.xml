@@ -3,6 +3,7 @@
     <string name="tp_hint_opponent_name">Opponent Name</string>
     <string name="tp_hint_opponent_mps">Opponent\'s MPs</string>
     <string name="tp_hint_opponent_tp">Opponent\'s TP</string>
+    <string name="tp_hint_event">Game Type / Event</string>
     <string name="tp_hint_mps">My MPs</string>
     <string name="tp_hint_tp">My TP</string>
     <string name="tp_hint_text">Notes</string>
@@ -12,6 +13,10 @@
     <string name="tp_save">Save</string>
     <string name="tp_cancel">Cancel</string>
     <string name="tp_saved">Record saved/updates</string>
+
+    <string name="game_type_standard">Standard</string>
+    <string name="game_type_dreamcards">Dreamcards</string>
+    <string name="game_type_choose">- Choose Event -</string>
 
     <string name="record_delete_title">Delete this record?</string>
     <string name="record_delete_text">Do you want to delete this record?</string>
