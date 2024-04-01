@@ -1,16 +1,14 @@
 package github.heinrichbarth.meccgevents.ui.records;
 
 import android.content.DialogInterface;
-import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -19,10 +17,8 @@ import java.util.Date;
 import java.util.Locale;
 
 import github.heinrichbarth.meccgevents.R;
-import github.heinrichbarth.meccgevents.data.DataRepository;
 import github.heinrichbarth.meccgevents.data.TrackRecord;
 import github.heinrichbarth.meccgevents.databinding.FragmentTropyEntryBinding;
-import github.heinrichbarth.meccgevents.ui.OnCardClickImpl;
 
 public class TropyEntryFragment extends Fragment {
 
@@ -81,7 +77,7 @@ public class TropyEntryFragment extends Fragment {
         binding = FragmentTropyEntryBinding.inflate(inflater, container, false);
 
         binding.recordDetailName.setText(record.getOpponentName());
-        binding.recordDetailTime.setText(getDate());
+        binding.recordDetailTime.setText(record.getEventName());
         binding.recordDetailTpSelf.setText(record.getTournamentPoints());
         binding.recordDetailTpOpp.setText(record.getOpponentTournamentPoints());
 
@@ -102,12 +98,12 @@ public class TropyEntryFragment extends Fragment {
         if (tpSelf > tpOpp)
         {
             binding.recordDetailTpSelfCard.setCardBackgroundColor(colWon);
-            binding.recordDetailTpOppCard.setCardBackgroundColor(colLost);
+            binding.recordDetailTpOppCard.setCardBackgroundColor(colWon);
         }
         else if (tpSelf < tpOpp)
         {
             binding.recordDetailTpSelfCard.setCardBackgroundColor(colLost);
-            binding.recordDetailTpOppCard.setCardBackgroundColor(colWon);
+            binding.recordDetailTpOppCard.setCardBackgroundColor(colLost);
         }
 
         return binding.getRoot();
