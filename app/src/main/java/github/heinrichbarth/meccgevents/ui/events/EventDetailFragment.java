@@ -1,15 +1,14 @@
 package github.heinrichbarth.meccgevents.ui.events;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import github.heinrichbarth.meccgevents.R;
 import github.heinrichbarth.meccgevents.data.DataRepository;

@@ -1,14 +1,11 @@
 package github.heinrichbarth.meccgevents.ui.gallery;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 
 import github.heinrichbarth.meccgevents.R;
 import github.heinrichbarth.meccgevents.databinding.FragmentGalleryBinding;

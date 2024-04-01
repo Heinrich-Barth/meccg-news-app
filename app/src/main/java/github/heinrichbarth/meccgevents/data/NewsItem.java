@@ -1,11 +1,7 @@
 package github.heinrichbarth.meccgevents.data;
 
-import static github.heinrichbarth.meccgevents.data.JsonUtils.requireInteger;
 import static github.heinrichbarth.meccgevents.data.JsonUtils.requireLong;
 import static github.heinrichbarth.meccgevents.data.JsonUtils.requireString;
-
-import android.annotation.SuppressLint;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -13,9 +9,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 public class NewsItem extends TextblocksElement implements Comparable<NewsItem> {

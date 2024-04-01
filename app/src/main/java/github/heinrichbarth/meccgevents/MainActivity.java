@@ -1,34 +1,17 @@
 package github.heinrichbarth.meccgevents;
 
-import android.content.Context;
-import android.content.DialogInterface;
-import android.net.ConnectivityManager;
-import android.net.LinkProperties;
-import android.net.Network;
-import android.net.NetworkCapabilities;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
-import android.view.View;
-import android.view.ViewGroup;
 
-import com.google.android.material.navigation.NavigationView;
-
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import github.heinrichbarth.meccgevents.data.DataRepository;
+import com.google.android.material.navigation.NavigationView;
+
 import github.heinrichbarth.meccgevents.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {

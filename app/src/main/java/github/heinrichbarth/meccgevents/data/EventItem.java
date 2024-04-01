@@ -1,19 +1,13 @@
 package github.heinrichbarth.meccgevents.data;
 
-import static github.heinrichbarth.meccgevents.data.JsonUtils.convertToDate;
 import static github.heinrichbarth.meccgevents.data.JsonUtils.requireBoolean;
 import static github.heinrichbarth.meccgevents.data.JsonUtils.requireInteger;
 import static github.heinrichbarth.meccgevents.data.JsonUtils.requireString;
 
-import android.util.Log;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 

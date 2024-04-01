@@ -8,8 +8,6 @@ import androidx.navigation.Navigation;
 
 import org.jetbrains.annotations.NotNull;
 
-import github.heinrichbarth.meccgevents.R;
-
 public class OnCardClickImpl implements View.OnClickListener
 {
     private static final String TAG = "OnCardClickImpl";

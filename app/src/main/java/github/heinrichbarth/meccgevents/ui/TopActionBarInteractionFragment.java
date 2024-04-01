@@ -2,7 +2,6 @@ package github.heinrichbarth.meccgevents.ui;
 
 import android.graphics.Color;
 import android.util.Log;
-import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
 

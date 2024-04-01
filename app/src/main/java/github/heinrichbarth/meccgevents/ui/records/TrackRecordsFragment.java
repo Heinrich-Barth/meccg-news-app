@@ -1,8 +1,10 @@
 package github.heinrichbarth.meccgevents.ui.records;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -10,28 +12,19 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collections;
 import java.util.List;
 
 import github.heinrichbarth.meccgevents.R;
 import github.heinrichbarth.meccgevents.data.DataRepository;
-import github.heinrichbarth.meccgevents.data.EventItem;
 import github.heinrichbarth.meccgevents.data.TrackRecord;
-import github.heinrichbarth.meccgevents.databinding.FragmentSlideshowBinding;
 import github.heinrichbarth.meccgevents.databinding.FragmentTrackRecordsBinding;
 import github.heinrichbarth.meccgevents.ui.TopActionBarInteractionFragment;
-import github.heinrichbarth.meccgevents.ui.events.EventFragment;
 
 public class TrackRecordsFragment extends TopActionBarInteractionFragment {
 
@@ -127,7 +120,6 @@ public class TrackRecordsFragment extends TopActionBarInteractionFragment {
         super.onDestroyView();
         binding = null;
     }
-
     public void removeRecordEntry(long id)
     {
         final View view = getView();

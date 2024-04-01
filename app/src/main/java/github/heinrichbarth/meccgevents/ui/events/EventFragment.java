@@ -1,23 +1,17 @@
 package github.heinrichbarth.meccgevents.ui.events;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import org.jetbrains.annotations.NotNull;
 
-import github.heinrichbarth.meccgevents.R;
-import github.heinrichbarth.meccgevents.data.CardDataItem;
 import github.heinrichbarth.meccgevents.data.EventItem;
 import github.heinrichbarth.meccgevents.databinding.FragmentEventBinding;
-import github.heinrichbarth.meccgevents.databinding.FragmentNewsBinding;
 import github.heinrichbarth.meccgevents.ui.GenericDetailFragment;
 import github.heinrichbarth.meccgevents.ui.OnCardClickImpl;
 

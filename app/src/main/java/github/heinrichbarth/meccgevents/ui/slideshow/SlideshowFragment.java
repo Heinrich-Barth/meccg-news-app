@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 
 import github.heinrichbarth.meccgevents.R;
 import github.heinrichbarth.meccgevents.databinding.FragmentSlideshowBinding;
