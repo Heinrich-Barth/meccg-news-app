@@ -28,7 +28,7 @@ public class TrackRecord
     private String points = "";
 
     @NotNull
-    private String notes = "";
+    private String eventName = "";
 
     @NotNull
     public long getId()
@@ -65,12 +65,6 @@ public class TrackRecord
         return tournamentPoints;
     }
 
-    @NotNull
-    public String getNotes()
-    {
-        return notes;
-    }
-
     public void setOpponentName(String value)
     {
         opponentName = value == null ? "" : value.trim();
@@ -96,11 +90,15 @@ public class TrackRecord
         tournamentPoints = value == null ? "" : value.trim();
     }
 
-    public void setNotes(String value)
-    {
-        notes = value == null ? "" : value.trim();
+    public void setEventName(String value) {
+        eventName = value == null ? "" : value.trim();
     }
 
+    @NotNull
+    public String getEventName()
+    {
+        return eventName;
+    }
     static TrackRecord fromJson(@Nullable JSONObject pJson)
     {
         if (pJson == null) {
@@ -117,7 +115,7 @@ public class TrackRecord
         pItem.points = requireString(pJson, "points");
         pItem.opponentPoints = requireString(pJson, "opponentPoints");
 
-        pItem.notes = requireString(pJson, "notes");
+        pItem.eventName = requireString(pJson, "eventName");
         pItem.id = requireLong(pJson, "id");
 
         Log.w("TrackRecord", "record id = " + pItem.id);
@@ -134,7 +132,7 @@ public class TrackRecord
             json.put("opponentTournamentPoints", this.opponentTournamentPoints);
             json.put("tournamentPoints",this.tournamentPoints);
             json.put("points", this.points);
-            json.put("notes", this.notes);
+            json.put("eventName", this.eventName);
             json.put("id", this.id);
             return json;
         }
@@ -145,4 +143,5 @@ public class TrackRecord
 
         return new JSONObject();
     }
+
 }
