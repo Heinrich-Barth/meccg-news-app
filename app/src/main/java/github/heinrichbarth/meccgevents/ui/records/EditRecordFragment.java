@@ -1,24 +1,22 @@
 package github.heinrichbarth.meccgevents.ui.records;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-import android.text.Editable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
-
-
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import github.heinrichbarth.meccgevents.R;
 import github.heinrichbarth.meccgevents.data.DataRepository;
@@ -33,9 +31,6 @@ public class EditRecordFragment extends DialogFragment {
     private final TrackRecordsFragment caller;
 
     private FragmentEditRecordBinding binding;
-
-    @NotNull
-    private static final String[] POINTS = {"0", "1", "2", "3", "4", "5", "6"};
 
     public EditRecordFragment (@NotNull TrackRecordsFragment caller, @Nullable TrackRecord data)
     {
@@ -53,8 +48,8 @@ public class EditRecordFragment extends DialogFragment {
     @NotNull
     private String[] createPointArray(int nMax)
     {
-        final String[] arr = new String[nMax];
-        for (int i = 0; i < nMax; i++)
+        final String[] arr = new String[nMax+1];
+        for (int i = 0; i <= nMax; i++)
             arr[i] = "" + i;
 
         return arr;
@@ -84,13 +79,13 @@ public class EditRecordFragment extends DialogFragment {
 
     private boolean populateRecord(@NotNull TrackRecord record)
     {
-        record.setNotes(getText(binding.recordEditNotes));
         record.setOpponentName(getText(binding.recordEditOppName));
 
         record.setPoints(getText(binding.recordEditMyMps));
         record.setTournamentPoints(getText(binding.selectTpSelfLayout));
         record.setOpponentTournamentPoints(getText(binding.selectTpOppLayout));
         record.setOpponentPoints(getText(binding.recordEditOppMps));
+        record.setEventName(getText(binding.recordEditEventDropdown));
 
         return isValidEntry(record);
     }
@@ -133,6 +128,20 @@ public class EditRecordFragment extends DialogFragment {
         binding = null;
     }
 
+    private List<String> getEventNames()
+    {
+        final List<String> vsEvents = DataRepository.get().getEventNames();
+        final List<String> vsResult = new ArrayList<>(vsEvents.size() + 2);
+        vsResult.add(getString(R.string.game_type_standard));
+        vsResult.add(getString(R.string.game_type_dreamcards));
+        if (!vsEvents.isEmpty()) {
+            vsResult.add(getString(R.string.game_type_choose));
+            vsResult.addAll(vsEvents);
+        }
+
+        return vsResult;
+    }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -145,7 +154,7 @@ public class EditRecordFragment extends DialogFragment {
         binding.buttonEditrecordSave.setClickable(true);
         binding.buttonEditrecordSave.setOnClickListener(this::doSave);
 
-        final String[] arrTPs = createPointArray(6);
+        final String[] arrTPs = createPointArray(7);
         final String[] arrMps = createPointArray(50);
 
         binding.selectTpSelf.setThreshold(1);
@@ -159,6 +168,9 @@ public class EditRecordFragment extends DialogFragment {
 
         binding.recordEditOppMps.setThreshold(1);
         binding.recordEditOppMps.setAdapter(new ArrayAdapter<>(getContext(), R.layout.layout_tournament_points, arrMps));
+
+        binding.recordEditEventDropdown.setThreshold(1);
+        binding.recordEditEventDropdown.setAdapter(new ArrayAdapter<>(getContext(), R.layout.layout_tournament_points, getEventNames()));
 
         if (data != null)
             populateView(data);

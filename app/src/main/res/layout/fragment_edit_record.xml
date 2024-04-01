@@ -34,8 +34,33 @@
             android:inputType="text"
             android:maxLines="1"
             android:padding="10dp"
+            android:singleLine="true"
+            android:textColorHighlight="@color/teal_200"
             android:textColor="@color/text_default"
             android:textColorHint="@color/light_black" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/record_edit_event_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/tp_hint_event"
+            android:textColorHint="@color/light_black"
+            app:helperTextTextColor="@color/light_black"
+            app:hintTextColor="@color/text_default"
+            app:placeholderTextColor="@color/light_black">
+
+            <AutoCompleteTextView
+                android:id="@+id/record_edit_event_dropdown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/near_black"
+                android:inputType="none"
+                android:textColor="@color/light_black"
+                android:textColorHint="@color/light_black"
+                app:dropDownBackgroundTint="@color/near_black" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:layout_width="match_parent"
@@ -173,24 +198,10 @@
 
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/record_edit_notes"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginBottom="20dp"
-            android:background="@color/near_black"
-            android:ems="10"
-            android:gravity="start|top"
-            android:hint="@string/tp_hint_text"
-            android:inputType="textMultiLine"
-            android:padding="10dp"
-            android:textColor="@color/text_default"
-            android:textColorHint="@color/light_black" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
             <Button
