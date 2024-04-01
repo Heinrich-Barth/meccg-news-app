@@ -3,7 +3,6 @@ package github.heinrichbarth.meccgevents.data;
 import static github.heinrichbarth.meccgevents.data.JsonUtils.requireString;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -89,8 +88,12 @@ abstract class TextblocksElement implements CardDataItem
     {
         if (sInput.isEmpty())
             return 0;
+
+        final String[] parts = sInput.split("T");
+        if (parts.length == 0)
+            return 0;
         else
-            return toInt(sInput.replaceAll("-", ""));
+            return toInt(parts[0].replaceAll("-", ""));
     }
 
     private static int toInt(@NotNull String sVal)
