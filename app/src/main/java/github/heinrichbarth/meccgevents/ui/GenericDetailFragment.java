@@ -3,20 +3,10 @@ package github.heinrichbarth.meccgevents.ui;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 
 import org.jetbrains.annotations.NotNull;
-
-import java.text.DateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.Locale;
-
-import github.heinrichbarth.meccgevents.MainActivity;
 
 public abstract class GenericDetailFragment extends TopActionBarInteractionFragment {
 
@@ -52,6 +42,9 @@ public abstract class GenericDetailFragment extends TopActionBarInteractionFragm
     @NotNull
     public static String fullDate(@NotNull String sDate)
     {
+        if (sDate.contains("T"))
+            sDate = sDate.substring(0, sDate.indexOf("T"));
+
         final String[] parts = sDate.split("-");
         if (parts.length != 3)
             return sDate;
