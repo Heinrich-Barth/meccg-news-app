@@ -32,14 +32,17 @@ android {
                 "proguard-rules.pro"
             )
             buildConfigField("String", "URL_MELLON_GAMES", "\"${localProperties.getProperty("meccg.url.mellon.games", "")}\"")
-            buildConfigField("String", "URL_EVENTS_ALL", "\"${localProperties.getProperty("meccg.url.events.all", "")}\"")
-            buildConfigField("String", "URL_NEWS_ALL", "\"${localProperties.getProperty("meccg.url.news.all", "")}\"")
+            buildConfigField("String", "URL_EVENTS_ALL", "\"${localProperties.getProperty("meccg.data.events", "")}\"")
+            buildConfigField("String", "URL_NEWS_ALL", "\"${localProperties.getProperty("meccg.data.key", "")}\"")
+            buildConfigField("String", "URL_AUTH_KEY", "\"${localProperties.getProperty("meccg.data.key", "")}\"")
+            signingConfig = signingConfigs.getByName("debug")
         }
 
         debug {
             buildConfigField("String", "URL_MELLON_GAMES", "\"${localProperties.getProperty("meccg.url.mellon.games", "")}\"")
-            buildConfigField("String", "URL_EVENTS_ALL", "\"${localProperties.getProperty("meccg.url.events.all", "")}\"")
-            buildConfigField("String", "URL_NEWS_ALL", "\"${localProperties.getProperty("meccg.url.news.all", "")}\"")
+            buildConfigField("String", "URL_EVENTS_ALL", "\"${localProperties.getProperty("meccg.data.events", "")}\"")
+            buildConfigField("String", "URL_NEWS_ALL", "\"${localProperties.getProperty("meccg.data.news", "")}\"")
+            buildConfigField("String", "URL_AUTH_KEY", "\"${localProperties.getProperty("meccg.data.key", "")}\"")
         }
     }
     compileOptions {
