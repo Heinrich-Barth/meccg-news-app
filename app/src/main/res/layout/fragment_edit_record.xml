@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:text="@string/tp_section_title"
+            android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textColor="@color/text_default" />
 
@@ -56,6 +57,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/near_black"
                 android:inputType="none"
+                android:contentDescription="@string/tp_hint_event"
                 android:textColor="@color/light_black"
                 android:textColorHint="@color/light_black"
                 app:dropDownBackgroundTint="@color/near_black" />
@@ -79,7 +81,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/record_edit_my_mps_layout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
-                android:layout_width="160dp"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/tp_hint_mps"
                 android:textColorHint="@color/light_black"
@@ -93,6 +95,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/near_black"
                     android:inputType="none"
+                    android:contentDescription="@string/tp_hint_mps"
                     android:textColor="@color/light_black"
                     android:textColorHint="@color/light_black"
                     app:dropDownBackgroundTint="@color/near_black" />
@@ -100,15 +103,14 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Space
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_width="50dp"
+                android:layout_height="wrap_content" />
 
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/record_edit_opp_mps_layout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
-                android:layout_width="160dp"
+                android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/tp_hint_opponent_mps"
                 android:textColorHint="@color/light_black"
@@ -122,6 +124,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/near_black"
                     android:inputType="none"
+                    android:contentDescription="@string/tp_hint_opponent_mps"
                     android:textColor="@color/light_black"
                     android:textColorHint="@color/light_black"
                     app:dropDownBackgroundTint="@color/near_black" />
@@ -148,7 +151,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/select_tp_self_layout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
-                android:layout_width="160dp"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/tp_hint_tp"
                 android:textColorHint="@color/light_black"
@@ -162,6 +165,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/near_black"
                     android:inputType="none"
+                    android:contentDescription="@string/tp_hint_tp"
                     android:textColor="@color/light_black"
                     android:textColorHint="@color/light_black"
                     app:dropDownBackgroundTint="@color/near_black" />
@@ -169,9 +173,8 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_width="50dp"
+                android:layout_height="wrap_content" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
@@ -186,10 +189,11 @@
 
                 <AutoCompleteTextView
                     android:id="@+id/select_tp_opp"
-                    android:layout_width="160dp"
+                    android:layout_width="170dp"
                     android:layout_height="wrap_content"
                     android:background="@color/near_black"
                     android:inputType="none"
+                    android:contentDescription="@string/tp_hint_opponent_tp"
                     android:textColor="@color/light_black"
                     android:textColorHint="@color/light_black"
                     app:dropDownBackgroundTint="@color/near_black" />
