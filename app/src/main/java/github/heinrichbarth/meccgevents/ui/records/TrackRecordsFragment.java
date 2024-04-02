@@ -54,7 +54,6 @@ public class TrackRecordsFragment extends TopActionBarInteractionFragment {
 
                 final Bundle bundle = new Bundle();
                 bundle.putBoolean("notAlertDialog", true);
-                bundle.putBoolean("notAlertDialog", true);
 
                 final EditRecordFragment dialogFragment = new EditRecordFragment(instance,null);
                 dialogFragment.setArguments(bundle);
