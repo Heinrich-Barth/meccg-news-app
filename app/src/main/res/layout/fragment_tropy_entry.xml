@@ -33,7 +33,7 @@
                     android:id="@+id/record_detail_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="0"
+                    android:text="@string/placeholder_overwrite"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@color/light_black" />
 
@@ -41,7 +41,7 @@
                     android:id="@+id/record_detail_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
+                    android:text="@string/placeholder_overwrite"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textColor="@color/light_black" />
 
@@ -59,7 +59,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center|center_horizontal"
-                    android:text="6"
+                    android:text="@string/placeholder_overwrite_num"
                     android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textColor="@color/background"
@@ -79,7 +79,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center|center_horizontal"
-                    android:text="0"
+                    android:text="@string/placeholder_overwrite_num"
                     android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textColor="@color/background"

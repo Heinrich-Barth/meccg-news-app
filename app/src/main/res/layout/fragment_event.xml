@@ -39,14 +39,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="I'm a subhead"
+                    android:text="@string/placeholder_overwrite"
                     android:textColor="@color/light_black" />
 
                 <TextView
                     android:id="@+id/eventTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="I'm a title"
+                    android:text="@string/placeholder_overwrite"
                     android:textAllCaps="true"
                     android:textColor="@color/light_black" />
 

@@ -20,7 +20,7 @@
                     android:id="@+id/news_detail_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
+                    android:text="@string/placeholder_overwrite"
                     android:textAllCaps="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textColor="@color/text_default" />

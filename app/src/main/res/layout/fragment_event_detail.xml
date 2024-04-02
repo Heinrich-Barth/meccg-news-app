@@ -40,7 +40,7 @@
                         android:id="@+id/event_detail_venue"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="TextView"
+                        android:text="@string/placeholder_overwrite"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:textColor="@color/text_default" />
 
@@ -48,7 +48,7 @@
                         android:id="@+id/event_detail_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="TextView"
+                        android:text="@string/placeholder_overwrite"
                         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                         android:textColor="@color/text_default" />
 
@@ -64,7 +64,7 @@
                 android:id="@+id/event_detail_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text="@string/placeholder_overwrite"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="@color/text_default" />
 
@@ -77,7 +77,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="8sp"
-                android:text="TextView"
+                android:text="@string/placeholder_overwrite"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="@color/text_default"
                 android:textStyle="bold" />
@@ -98,10 +98,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                android:text="Button"
+                android:text="@string/placeholder_overwrite"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="@color/text_default"
-                android:textSize="10sp"
+                android:textSize="12sp"
                 app:icon="@android:drawable/ic_menu_set_as"
                 app:iconGravity="textEnd"
                 app:iconTint="@color/text_default" />

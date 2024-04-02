@@ -13,6 +13,8 @@
     <string name="tp_save">Save</string>
     <string name="tp_cancel">Cancel</string>
     <string name="tp_saved">Record saved/updates</string>
+    <string name="tp_float_action">Create new record</string>
+    <string name="tp_trophy_icon">Trophy Image</string>
 
     <string name="game_type_standard">Standard</string>
     <string name="game_type_dreamcards">Dreamcards</string>
@@ -24,7 +26,6 @@
     <string name="record_delete_no">Abort</string>
     <string name="record_delete_success">Record removed</string>
     <string name="record_delete_failure">Record removed</string>
-
 
     <string name="app_name">MECCG Community App</string>
     <string name="app_name_id">MECCG Community</string>
@@ -52,12 +53,15 @@
     <string name="events_detail_list_event_online_intro">Although MECCG is best enjoyed in person, online events are a great opportunity to meet and play.</string>
 
     <string name="events_text_title">Details</string>
-
     <string name="recentnews_title">Latest News</string>
+    <string name="button_online_games">Current Games on Mellon: %1$s</string>
 
     <string name="upcomingevents_title_online">Upcoming Events (online)</string>
     <string name="upcomingevents_title">Upcoming Events</string>
 
     <string name="trackrecords_introtext">Keep track of your game results. </string>
+
+    <string name="placeholder_overwrite">Placeholder. Will be overwritten anyway.</string>
+    <string name="placeholder_overwrite_num">0</string>
 
 </resources>
