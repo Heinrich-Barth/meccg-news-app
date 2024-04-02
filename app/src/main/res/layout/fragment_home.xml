@@ -24,7 +24,7 @@
             <Button
                 android:id="@+id/button_current_games_mellon"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:text="Current Games on Mellon: 0"
@@ -51,11 +51,11 @@
                 <TextView
                     android:id="@+id/ttle_latest_news"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:layout_marginBottom="5dp"
-                    android:drawableTintMode="multiply"
+                    android:gravity="center_vertical"
+                    app:drawableTintMode="multiply"
                     android:text="@string/recentnews_title"
-                    android:textAlignment="viewStart"
                     android:textAllCaps="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textColor="@color/green"
@@ -86,11 +86,11 @@
                 <TextView
                     android:id="@+id/title_upcoming_events"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:layout_marginBottom="5dp"
-                    android:drawableTintMode="multiply"
+                    app:drawableTintMode="multiply"
+                    android:gravity="center_vertical"
                     android:text="@string/upcomingevents_title"
-                    android:textAlignment="viewStart"
                     android:textAllCaps="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textColor="@color/green"
@@ -121,17 +121,17 @@
                 <TextView
                     android:id="@+id/title_upcoming_events_online"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="48dp"
                     android:layout_marginBottom="5dp"
-                    android:drawableTintMode="multiply"
                     android:text="@string/upcomingevents_title_online"
-                    android:textAlignment="viewStart"
+                    android:gravity="center_vertical"
                     android:textAllCaps="true"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     android:textColor="@color/green"
                     app:drawableEndCompat="@android:drawable/ic_menu_send"
                     app:drawableStartCompat="@android:drawable/ic_menu_today"
-                    app:drawableTint="@color/green" />
+                    app:drawableTint="@color/green"
+                    app:drawableTintMode="multiply" />
             </LinearLayout>
 
             <LinearLayout
