@@ -49,18 +49,6 @@ public class HomeFragment extends TopActionBarInteractionFragment {
                              ViewGroup container, Bundle savedInstanceState)
     {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
-        binding.buttonCurrentGamesMellon.setOnClickListener(v -> {
-
-            try {
-                final Uri uriUrl = Uri.parse("https://meccg.herokuapp.com");
-                final Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
-                startActivity(launchBrowser);
-            }
-            catch (IllegalStateException exIgnore)
-            {
-                /* ignore */
-            }
-        });
 
         binding.ttleLatestNews.setClickable(true);
         binding.ttleLatestNews.setOnClickListener(new OnCardClickImpl(R.id.action_nav_home_to_newsListFragment));
@@ -72,7 +60,7 @@ public class HomeFragment extends TopActionBarInteractionFragment {
         binding.titleUpcomingEventsOnline.setOnClickListener(new OnCardClickImpl(R.id.action_nav_home_to_eventListFragment));
 
         DataRepository.init(getActivityContext());
-        onPopulateViewWithCachedData(true, true, true);
+        onPopulateViewWithCachedData(true, true);
         setActivityTitle(getString(R.string.menu_home));
 
         return binding.getRoot();
@@ -196,7 +184,7 @@ public class HomeFragment extends TopActionBarInteractionFragment {
                 return;
 
             try {
-                fragment.onPopulateViewWithCachedData(fetchNews(), fetchEvents(), false);
+                fragment.onPopulateViewWithCachedData(fetchNews(), fetchEvents());
             }
             catch (RuntimeException exIgnore)
             {
@@ -232,9 +220,9 @@ public class HomeFragment extends TopActionBarInteractionFragment {
 
     }
 
-    private void onPopulateViewWithCachedData(boolean news, boolean events, boolean onlineGames)
+    private void onPopulateViewWithCachedData(boolean news, boolean events)
     {
-        if (!news && !events && !onlineGames)
+        if (!news && !events)
             return;
 
         final FragmentActivity activity = getActivity();
@@ -252,21 +240,8 @@ public class HomeFragment extends TopActionBarInteractionFragment {
             loadEvents(activity, repository.getEvents(maxNews, false), false);
             loadEvents(activity, repository.getEvents(maxNews, true), true);
         }
-
-        if (onlineGames)
-            updateOnlineGames(repository.getCurrentGames());
     }
 
-    private void updateOnlineGames(int count)
-    {
-        if (count < 1) {
-            binding.layoutGamesOnline.setVisibility(View.INVISIBLE);
-            return;
-        }
-
-        final String sText = binding.buttonCurrentGamesMellon.getText().toString().split(":")[0];
-        binding.buttonCurrentGamesMellon.setText(sText + ": " + count);
-    }
 
     private void loadNews(@NotNull FragmentActivity activity, List<NewsItem> vpNews)
     {
