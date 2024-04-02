@@ -118,7 +118,7 @@ public class EditRecordFragment extends DialogFragment {
         super.onCreate(savedInstanceState);
 
         setStyle(DialogFragment.STYLE_NORMAL,
-                android.R.style.Theme_Black_NoTitleBar_Fullscreen);
+                android.R.style.Theme_DeviceDefault_Dialog_NoActionBar);
     }
 
     @Override
